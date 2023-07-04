@@ -7,8 +7,10 @@ export type BoardWithList = {
 
 export interface BoardStore {
     board: Board
-    virtualBoard: object,
+    virtualBoard: object
+    moving: object
     setPiecePostion: (origin: string, destiny: string) => void
+    setMovingPiece: (spot: Piece) => void
 }
 
 export interface Piece {

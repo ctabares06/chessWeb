@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { BoardStore } from '../types'
+import { BoardStore, Piece } from '../types'
 import { boardGenerator, fillBoard } from '../utils/initializers';
 
 const useBearStore = create<BoardStore>()((set) => {
@@ -9,6 +9,7 @@ const useBearStore = create<BoardStore>()((set) => {
     return {
         board: board,
         virtualBoard: list,
+        moving: {},
         setPiecePostion: (origin: string, destiny: string) => set((state) => {
             const copy = Object(state.virtualBoard)
             copy[destiny] = copy[origin]
@@ -18,6 +19,11 @@ const useBearStore = create<BoardStore>()((set) => {
                 virtualBoard: {...copy}
             }
                 
+        }),
+        setMovingPiece: (spot: Piece) => set(() => {
+            return {
+                moving: spot
+            }
         })
     }
 })
