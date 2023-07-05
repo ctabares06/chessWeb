@@ -7,7 +7,7 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
     const moving = useBearStore(state => state.moving)
     const setMoving = useBearStore(state => state.setMovingPiece)
     const setPosition = useBearStore(state => state.setPiecePostion)
-    const spot = board[slot]
+    const spot = board[slot].piece
 
     const handleClickSlot = () => {
         if(_.isEmpty(moving) && _.isEmpty(spot)) {
@@ -20,17 +20,22 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
         }
 
         if(!_.isEmpty(spot)) {
-            const movingSpot = {...spot, position: slot}
+            const movingSpot = Object({...spot, position: slot})
             return setMoving(movingSpot)
         }
     }
 
-
+    const renderSpot = () => {
+        if(!_.isEmpty(spot)) {
+            return spot.icon
+        }
+        return
+    }
 
     return (
         <div onClick={handleClickSlot} style={{ display: 'inline-block', fontSize: '20px', border: '2px solid darkred', width: '50px', height: '50px' }}>
             {
-                spot.name && spot.icon
+              renderSpot()
             }
         </div>
     )
