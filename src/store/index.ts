@@ -22,7 +22,7 @@ const useBearStore = create<BoardStore>()((set) => {
         }),
         setMovingPiece: (spot: Piece) => set(() => {
             return {
-                moving: spot
+                moving: {...spot}
             }
         })
     }

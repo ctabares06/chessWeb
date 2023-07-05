@@ -6,6 +6,7 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
     const board = useBearStore((state) => state.virtualBoard)
     const moving = useBearStore(state => state.moving)
     const setMoving = useBearStore(state => state.setMovingPiece)
+    const setPosition = useBearStore(state => state.setPiecePostion)
     const spot = board[slot]
 
     const handleClickSlot = () => {
@@ -13,8 +14,14 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
             return
         }
 
+        if(!_.isEmpty(moving)) {
+            setPosition(moving.position, slot)
+            return setMoving(Object())
+        }
+
         if(!_.isEmpty(spot)) {
-            setMoving(spot)
+            const movingSpot = {...spot, position: slot}
+            return setMoving(movingSpot)
         }
     }
 
