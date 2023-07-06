@@ -24,13 +24,13 @@ export interface BoardStore {
     virtualBoard: virtualBoard
     moving: movingPiece
     setPiecePostion: (origin: string, destiny: string) => void
-    setMovingPiece: (spot: movingPiece) => void
+    setMovingPiece: (cell: axisFigure) => void
 }
 
 export interface Piece {
     name: Figures
     icon: string
-    avMoves: Array<string>
+    color: Sides
 }
 
 export interface Pawn extends Piece {

@@ -1,4 +1,4 @@
-import { Board, BoardWithList, Figures, virtualBoard } from "../types";
+import { Board, BoardWithList, Figures, Sides, virtualBoard } from "../types";
 
 export function boardGenerator(size: number): BoardWithList {
     const initialLetter = 65
@@ -28,7 +28,7 @@ export function boardGenerator(size: number): BoardWithList {
 export function fillBoard(virtual: virtualBoard): void {
     virtual["1A"].piece = {
         name: Figures.pawn,
-        avMoves: [],
-        icon: "P"
+        icon: "P",
+        color: Sides.white
     }
 }

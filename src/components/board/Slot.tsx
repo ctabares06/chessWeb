@@ -5,29 +5,25 @@ import useBearStore from '../../store'
 const Slot: FC<{ slot: string }> = ({ slot }) => {
     const board = useBearStore((state) => state.virtualBoard)
     const moving = useBearStore(state => state.moving)
-    const setMoving = useBearStore(state => state.setMovingPiece)
     const setPosition = useBearStore(state => state.setPiecePostion)
-    const spot = board[slot].piece
+    const setMoving = useBearStore(state => state.setMovingPiece)
+    const cell = board[slot]
+    const piece = cell.piece
 
     const handleClickSlot = () => {
-        if(_.isEmpty(moving) && _.isEmpty(spot)) {
+        if(_.isEmpty(moving) && _.isEmpty(piece)) {
             return
         }
 
-        if(!_.isEmpty(moving)) {
-            setPosition(moving.position, slot)
-            return setMoving(Object())
-        }
-
-        if(!_.isEmpty(spot)) {
-            const movingSpot = Object({...spot, position: slot})
-            return setMoving(movingSpot)
+        if(!_.isEmpty(piece)) {
+            console.log(cell)
+            return setMoving(cell)
         }
     }
 
     const renderSpot = () => {
-        if(!_.isEmpty(spot)) {
-            return spot.icon
+        if(!_.isEmpty(piece)) {
+            return piece.icon
         }
         return
     }

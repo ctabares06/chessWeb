@@ -1,16 +1,15 @@
-import { Figures, Pawn } from "../types";
+import { Figures, Pawn, axisFigure } from "../types";
 
-export function getMoveCalc(figure: Pawn, row: number, col: number) {
-  switch (figure.name) {
+export function getMoveCalc(cell: axisFigure) : string[] {
+  const { piece, row, col } = cell;
+  switch (piece.name) {
     case Figures.pawn:
-      return pawnMoveCalc(figure, row, col)
+      return pawnMoveCalc(piece, row, col)
     default:
       throw new Error("unknown figure type")
   }
 }
 
 function pawnMoveCalc(figure: Pawn, row: number, col: number) {
-  if(figure.firstMove) {
-    // TODO: make pawn function 
-  }
+  return []
 }
