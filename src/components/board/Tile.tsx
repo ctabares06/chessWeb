@@ -1,16 +1,15 @@
 import { FC } from 'react'
 import Slot from './Slot'
-import { Piece } from '../../types'
 
 interface TileProps {
-    row: Array<Piece | {}>
+    row: Array<string>
 }
 
 const Tile: FC<TileProps> = ({ row }) => {
     return (
         <div>
             {
-                row.map(slot => (<Slot key={slot} slot={slot} />))
+                row.map((slot) => (<Slot key={slot} slot={slot} />))
             }
         </div>
     )

@@ -2,9 +2,8 @@ import { FC } from 'react';
 import useBearStore from '../../store';
 import Tile from './Tile';
 
-const Board: FC<{}> = () => {
+const Board: FC = () => {
     const board = useBearStore((state) => state.board)
-    const virtualBoard = useBearStore((state) => state.virtualBoard)
     const setPos = useBearStore(state => state.setPiecePostion)
 
     return (

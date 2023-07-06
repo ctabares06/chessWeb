@@ -33,7 +33,7 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
     }
 
     return (
-        <div onClick={handleClickSlot} style={{ display: 'inline-block', fontSize: '20px', border: '2px solid darkred', width: '50px', height: '50px' }}>
+        <div onClick={handleClickSlot} data-testid="slot" style={{ display: 'inline-block', fontSize: '20px', border: '2px solid darkred', width: '50px', height: '50px' }}>
             {
               renderSpot()
             }
