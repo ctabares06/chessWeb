@@ -23,8 +23,6 @@ export interface BoardStore {
     board: Board
     virtualBoard: virtualBoard
     moving: movingPiece
-    setPiecePostion: (origin: string, destiny: string) => void
-    setMovingPiece: (cell: axisFigure) => void
 }
 
 export interface Piece {

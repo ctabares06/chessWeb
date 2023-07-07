@@ -11,16 +11,6 @@ const useBearStore = create<BoardStore>()(devtools((set) => {
         board: board,
         virtualBoard: list,
         moving: {},
-        setPiecePostion: (origin, destiny) => set((state) => {
-            const copy = Object(state.virtualBoard)
-            copy[destiny].piece = copy[origin].piece
-            copy[origin].piece = {}
-
-            return {
-                virtualBoard: {...copy}
-            }
-                
-        })
     }
 }, { name: "chess" }))
 

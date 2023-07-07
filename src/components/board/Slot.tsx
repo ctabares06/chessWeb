@@ -1,12 +1,10 @@
 import { FC } from 'react'
 import _ from 'lodash'
-import useBearStore from '../../store'
+import useBearStore, { setMovingPiece, setPiecePostion } from '../../store'
 
 const Slot: FC<{ slot: string }> = ({ slot }) => {
     const board = useBearStore((state) => state.virtualBoard)
     const moving = useBearStore(state => state.moving)
-    const setPosition = useBearStore(state => state.setPiecePostion)
-    const setMoving = useBearStore(state => state.setMovingPiece)
     const cell = board[slot]
     const piece = cell.piece
 
@@ -17,7 +15,7 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
 
         if(!_.isEmpty(piece)) {
             console.log(cell)
-            return setMoving(cell)
+            return setMovingPiece(cell)
         }
     }
 
