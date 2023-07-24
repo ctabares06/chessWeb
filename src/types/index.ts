@@ -8,7 +8,7 @@ export type BoardWithList = {
 export type axisFigure = {
     col: number
     row: number
-    piece: Piece | Record<string,never>
+    piece: Pawn | Record<string,never>
 }
 
 export type virtualBoard = {
@@ -16,6 +16,7 @@ export type virtualBoard = {
 }
 
 export type movingPiece = Piece & {
+    avMoves: Array<string>,
     position: string
 } | Record<string, never>
 

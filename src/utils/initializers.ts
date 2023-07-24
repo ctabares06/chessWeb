@@ -29,6 +29,7 @@ export function fillBoard(virtual: virtualBoard): void {
     virtual["1A"].piece = {
         name: Figures.pawn,
         icon: "P",
-        color: Sides.white
+        color: Sides.white,
+        firstMove: true
     }
 }

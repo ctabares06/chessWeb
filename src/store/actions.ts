@@ -1,13 +1,14 @@
-import { axisFigure } from "../types"
+import { axisFigure, movingPiece } from "../types"
 import { getMoveCalc } from "../utils/moves"
 import useBearStore from "./store"
 
-export const setMovingPiece = (cell: axisFigure) => useBearStore.setState(() => {
+export const setMovingPiece = (cell: axisFigure, position: string) => useBearStore.setState((state) => {
   const { piece } = cell
-  const avPos = getMoveCalc(cell)
-  const moving = Object({
+  const avPos = getMoveCalc(cell, state.board, state.virtualBoard)
+  const moving: movingPiece = Object({
       ...piece,
-      avMoves: avPos
+      avMoves: avPos,
+      position
   })
 
   return {
@@ -21,7 +22,8 @@ export const setPiecePostion = (origin: string, destiny: string) => useBearStore
   copy[origin].piece = {}
 
   return {
-      virtualBoard: {...copy}
+      virtualBoard: {...copy},
+      moving: {}
   }
       
 })

@@ -14,8 +14,13 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
         }
 
         if(!_.isEmpty(piece)) {
-            console.log(cell)
-            return setMovingPiece(cell)
+            return setMovingPiece(cell, slot)
+        }
+
+        for (let i = 0; i < moving.avMoves.length; i++) {
+            if(moving.avMoves[i] === slot) {
+                return setPiecePostion(moving.position, slot)
+            }
         }
     }
 
