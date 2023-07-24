@@ -20,8 +20,101 @@ function pawnMoveCalc(figure: Pawn, row: number, col: number, board: Board, virt
   }
 
   for (let i = 1; i <= counter; i++) {
-    const pos = board[col + i][row]
-    console.log(pos, virtual[pos])
+    if(board[col + i]) {
+      const pos = board[col + i][row]
+      if (_.isEmpty(virtual[pos].piece)) {
+        moves.push(pos)
+      }
+    }
+  }
+
+  return moves
+}
+
+function moveStraightUp(row: number, col: number, board: Board, virtual: virtualBoard) {
+  const moves = []
+  let done = false;
+  let currentCol = col;
+
+  while (!done) {
+    currentCol += 1
+
+    if(!board[currentCol]) {
+      done = true;
+      break;
+    }
+    const pos = board[currentCol][row]
+    console.log(pos)
+
+    if (_.isEmpty(virtual[pos].piece)) {
+      moves.push(pos)
+    }
+  }
+
+  return moves
+}
+
+function moveStraightDown(row: number, col: number, board: Board, virtual: virtualBoard) {
+  const moves = []
+  let done = false;
+  let currentCol = col;
+
+  while (!done) {
+    currentCol -= 1
+
+    if(!board[currentCol]) {
+      done = true;
+      break;
+    }
+    const pos = board[currentCol][row]
+    console.log(pos)
+
+    if (_.isEmpty(virtual[pos].piece)) {
+      moves.push(pos)
+    }
+  }
+
+  return moves
+}
+
+function moveStraightRight(row: number, col: number, board: Board, virtual: virtualBoard) {
+  const moves = []
+  let done = false;
+  let currentRow = row;
+
+  while (!done) {
+    currentRow += 1
+
+    if(!board[col][currentRow]) {
+      done = true;
+      break;
+    }
+
+    const pos = board[col][currentRow]
+
+    if (_.isEmpty(virtual[pos].piece)) {
+      moves.push(pos)
+    }
+  }
+
+  return moves
+}
+
+function moveStraightLeft(row: number, col: number, board: Board, virtual: virtualBoard) {
+  const moves = []
+  let done = false;
+  let currentRow = row;
+
+  while (!done) {
+    currentRow -= 1
+
+    if(!board[col][currentRow]) {
+      done = true;
+      break;
+    }
+
+    const pos = board[col][currentRow]
+
     if (_.isEmpty(virtual[pos].piece)) {
       moves.push(pos)
     }
