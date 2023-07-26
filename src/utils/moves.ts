@@ -11,22 +11,39 @@ export function getMoveCalc(cell: axisFigure, board: Board, virtual: virtualBoar
   }
 }
 
+// function pawnMoveCalc(figure: Pawn, row: number, col: number, board: Board, virtual: virtualBoard) {
+//   const moves = []
+//   let counter = 1
+
+//   if (figure.firstMove) {
+//     counter = 2
+//   }
+
+//   for (let i = 1; i <= counter; i++) {
+//     if(board[col + i]) {
+//       const pos = board[col + i][row]
+//       if (_.isEmpty(virtual[pos].piece)) {
+//         moves.push(pos)
+//       }
+//     }
+//   }
+
+//   return moves
+// }
+
 function pawnMoveCalc(figure: Pawn, row: number, col: number, board: Board, virtual: virtualBoard) {
-  const moves = []
   let counter = 1
 
   if (figure.firstMove) {
     counter = 2
   }
 
-  for (let i = 1; i <= counter; i++) {
-    if(board[col + i]) {
-      const pos = board[col + i][row]
-      if (_.isEmpty(virtual[pos].piece)) {
-        moves.push(pos)
-      }
-    }
-  }
+  const moves = [
+    ...moveRightUp(row, col, board, virtual),
+    ...moveLeftUp(row, col, board, virtual),
+    ...moveLeftDown(row, col, board, virtual),
+    ...moveRightDown(row, col, board, virtual),
+  ]
 
   return moves
 }
@@ -118,6 +135,130 @@ function moveStraightLeft(row: number, col: number, board: Board, virtual: virtu
     if (_.isEmpty(virtual[pos].piece)) {
       moves.push(pos)
     }
+  }
+
+  return moves
+}
+
+function moveRightUp(row: number, col: number, board: Board, virtual: virtualBoard) {
+  const moves = []
+  let done = false;
+  let currentRow = row
+  let currentCol = col
+
+  while(!done) {
+    currentRow += 1;
+    currentCol += 1;
+
+    if(!board[currentCol]) {
+      done = true;
+      break;
+
+    }
+
+    if(!board[currentCol][currentRow]) {
+      done = true;
+      break;
+    }
+
+    const pos = board[currentCol][currentRow]
+
+    if (_.isEmpty(virtual[pos].piece)) {
+      moves.push(pos)
+    }  
+  }
+
+  return moves
+}
+
+function moveLeftUp(row: number, col: number, board: Board, virtual: virtualBoard) {
+  const moves = []
+  let done = false;
+  let currentRow = row
+  let currentCol = col
+
+  while(!done) {
+    currentRow -= 1;
+    currentCol += 1;
+
+    if(!board[currentCol]) {
+      done = true;
+      break;
+
+    }
+
+    if(!board[currentCol][currentRow]) {
+      done = true;
+      break;
+    }
+
+    const pos = board[currentCol][currentRow]
+
+    if (_.isEmpty(virtual[pos].piece)) {
+      moves.push(pos)
+    }  
+  }
+
+  return moves
+}
+
+function moveRightDown(row: number, col: number, board: Board, virtual: virtualBoard) {
+  const moves = []
+  let done = false;
+  let currentRow = row
+  let currentCol = col
+
+  while(!done) {
+    currentRow += 1;
+    currentCol -= 1;
+
+    if(!board[currentCol]) {
+      done = true;
+      break;
+
+    }
+
+    if(!board[currentCol][currentRow]) {
+      done = true;
+      break;
+    }
+
+    const pos = board[currentCol][currentRow]
+
+    if (_.isEmpty(virtual[pos].piece)) {
+      moves.push(pos)
+    }  
+  }
+
+  return moves
+}
+
+function moveLeftDown(row: number, col: number, board: Board, virtual: virtualBoard) {
+  const moves = []
+  let done = false;
+  let currentRow = row
+  let currentCol = col
+
+  while(!done) {
+    currentRow -= 1;
+    currentCol -= 1;
+
+    if(!board[currentCol]) {
+      done = true;
+      break;
+
+    }
+
+    if(!board[currentCol][currentRow]) {
+      done = true;
+      break;
+    }
+
+    const pos = board[currentCol][currentRow]
+
+    if (_.isEmpty(virtual[pos].piece)) {
+      moves.push(pos)
+    }  
   }
 
   return moves
