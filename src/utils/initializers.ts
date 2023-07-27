@@ -26,17 +26,38 @@ export function boardGenerator(size: number): BoardWithList {
 }
 
 export function fillBoard(virtual: virtualBoard): void {
-    virtual["8H"].piece = {
-        name: Figures.pawn,
-        icon: "A",
+    virtual["1A"].piece = {
+        name: Figures.bishop,
+        icon: "B",
         color: Sides.white,
-        firstMove: true
     }
 
-    virtual["2A"].piece = {
+    virtual["1B"].piece = {
         name: Figures.pawn,
         icon: "C",
         color: Sides.white,
         firstMove: true
+    }
+
+    virtual["1C"].piece = {
+        name: Figures.queen,
+        icon: "Q",
+        color: Sides.white
+    }
+
+    virtual["1D"].piece = {
+        name: Figures.rook,
+        icon: "R",
+        color: Sides.white
+    }
+    virtual["1E"].piece = {
+        name: Figures.knight,
+        icon: "K",
+        color: Sides.white
+    }
+    virtual["1F"].piece = {
+        name: Figures.king,
+        icon: "W",
+        color: Sides.white
     }
 }

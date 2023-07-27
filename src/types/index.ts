@@ -8,7 +8,7 @@ export type BoardWithList = {
 export type axisFigure = {
     col: number
     row: number
-    piece: Pawn | Record<string,never>
+    piece: Piece | Pawn | Record<string,never>
 }
 
 export type virtualBoard = {

@@ -6,38 +6,45 @@ export function getMoveCalc(cell: axisFigure, board: Board, virtual: virtualBoar
   switch (piece.name) {
     case Figures.pawn:
       return pawnMoveCalc(piece, row, col, board, virtual)
+    case Figures.bishop:
+      return bishopMoveCalc(row, col, board, virtual)
+    case Figures.rook:
+      return rookMoveCalc(row, col, board, virtual)
+    case Figures.queen:
+      return queenMoveCalc(row, col, board, virtual)
+    case Figures.knight:
+      return knightMoveCalc(row, col, board, virtual)
+    case Figures.king:
+      return kingMoveCalc(row, col, board, virtual)
     default:
       throw new Error("unknown figure type")
   }
 }
 
-// function pawnMoveCalc(figure: Pawn, row: number, col: number, board: Board, virtual: virtualBoard) {
-//   const moves = []
-//   let counter = 1
 
-//   if (figure.firstMove) {
-//     counter = 2
-//   }
-
-//   for (let i = 1; i <= counter; i++) {
-//     if(board[col + i]) {
-//       const pos = board[col + i][row]
-//       if (_.isEmpty(virtual[pos].piece)) {
-//         moves.push(pos)
-//       }
-//     }
-//   }
-
-//   return moves
-// }
+// piece move calc
 
 function pawnMoveCalc(figure: Pawn, row: number, col: number, board: Board, virtual: virtualBoard) {
+  const moves = []
   let counter = 1
 
   if (figure.firstMove) {
     counter = 2
   }
 
+  for (let i = 1; i <= counter; i++) {
+    if(board[col + i]) {
+      const pos = board[col + i][row]
+      if (_.isEmpty(virtual[pos].piece)) {
+        moves.push(pos)
+      }
+    }
+  }
+
+  return moves
+}
+
+function bishopMoveCalc(row: number, col: number, board: Board, virtual: virtualBoard) {
   const moves = [
     ...moveRightUp(row, col, board, virtual),
     ...moveLeftUp(row, col, board, virtual),
@@ -47,6 +54,94 @@ function pawnMoveCalc(figure: Pawn, row: number, col: number, board: Board, virt
 
   return moves
 }
+
+function rookMoveCalc(row: number, col: number, board: Board, virtual: virtualBoard) {
+  const moves = [
+    ...moveStraightUp(row, col, board, virtual),
+    ...moveStraightLeft(row, col, board, virtual),
+    ...moveStraightDown(row, col, board, virtual),
+    ...moveStraightRight(row, col, board, virtual),
+  ]
+
+  return moves
+}
+
+function queenMoveCalc(row: number, col: number, board: Board, virtual: virtualBoard) {
+  const moves = [
+    ...moveStraightUp(row, col, board, virtual),
+    ...moveStraightLeft(row, col, board, virtual),
+    ...moveStraightDown(row, col, board, virtual),
+    ...moveStraightRight(row, col, board, virtual),
+    ...moveRightUp(row, col, board, virtual),
+    ...moveLeftUp(row, col, board, virtual),
+    ...moveLeftDown(row, col, board, virtual),
+    ...moveRightDown(row, col, board, virtual),
+  ]
+
+  return moves
+}
+
+function knightMoveCalc(row: number, col: number, board: Board, virtual: virtualBoard) {
+  const moves = []
+  const combinations = [
+    {y: 2, x: 1}, {y: 2, x: -1}, {y: -2, x: 1}, {y: -2, x: -1},
+    {y: 1, x: 2}, {y: 1, x: -2}, {y: -1, x: 2}, {y: -1, x: -2},
+  ]
+
+  for (let i = 0; i < combinations.length; i++) {
+    const currentCom = combinations[i]
+    console.log(col+currentCom.y, row+currentCom.x) 
+    
+    if(!board[col+currentCom.y]) {
+      continue;
+    }
+
+    if(!board[col+currentCom.y][row+currentCom.x]) {
+      continue;
+    }
+
+    const pos = board[col+currentCom.y][row+currentCom.x]
+
+    if (_.isEmpty(virtual[pos].piece)) {
+      moves.push(pos)
+    }
+
+  }
+
+  return moves
+}
+
+function kingMoveCalc(row: number, col: number, board: Board, virtual: virtualBoard) {
+  const moves = []
+  const combinations = [
+    {y: 1, x: -1}, {y: 1, x: 0}, {y: 1, x: 1}, {y: 1, x: 0},
+    {y: -1, x: 1}, {y: -1, x: 0}, {y: -1, x: -1}, {y: 0, x: -1},
+  ]
+
+  for (let i = 0; i < combinations.length; i++) {
+    const currentCom = combinations[i]
+    console.log(col+currentCom.y, row+currentCom.x) 
+    
+    if(!board[col+currentCom.y]) {
+      continue;
+    }
+
+    if(!board[col+currentCom.y][row+currentCom.x]) {
+      continue;
+    }
+
+    const pos = board[col+currentCom.y][row+currentCom.x]
+
+    if (_.isEmpty(virtual[pos].piece)) {
+      moves.push(pos)
+    }
+
+  }
+
+  return moves
+}
+
+// movements
 
 function moveStraightUp(row: number, col: number, board: Board, virtual: virtualBoard) {
   const moves = []
@@ -61,7 +156,6 @@ function moveStraightUp(row: number, col: number, board: Board, virtual: virtual
       break;
     }
     const pos = board[currentCol][row]
-    console.log(pos)
 
     if (_.isEmpty(virtual[pos].piece)) {
       moves.push(pos)
@@ -84,7 +178,6 @@ function moveStraightDown(row: number, col: number, board: Board, virtual: virtu
       break;
     }
     const pos = board[currentCol][row]
-    console.log(pos)
 
     if (_.isEmpty(virtual[pos].piece)) {
       moves.push(pos)
@@ -263,3 +356,5 @@ function moveLeftDown(row: number, col: number, board: Board, virtual: virtualBo
 
   return moves
 }
+
+// calc functions
