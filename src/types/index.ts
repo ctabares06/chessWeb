@@ -21,6 +21,7 @@ export type movingPiece = Piece & {
 } | Record<string, never>
 
 export interface BoardStore {
+    game: Game
     board: Board
     virtualBoard: virtualBoard
     moving: movingPiece
@@ -47,4 +48,21 @@ export enum Figures {
     knight,
     queen,
     king,
+}
+
+export enum GameStatus {
+    waiting, started, ended
+}
+
+interface Player {
+    graveyard: Array<Piece>
+    name: string | null
+    color: Sides | null
+}
+
+export type Game = {
+    status: GameStatus,
+    player1: Player | Record<string, never>
+    player2: Player | Record<string, never>
+    turn: string | null
 }

@@ -26,38 +26,60 @@ export function boardGenerator(size: number): BoardWithList {
 }
 
 export function fillBoard(virtual: virtualBoard): void {
+    initWhitePieces(virtual)
+}
+
+const initWhitePieces = (virtual: virtualBoard) => {
     virtual["1A"].piece = {
-        name: Figures.bishop,
-        icon: "B",
+        name: Figures.rook,
+        icon: "R",
         color: Sides.white,
     }
 
     virtual["1B"].piece = {
-        name: Figures.pawn,
-        icon: "C",
+        name: Figures.knight,
+        icon: "K",
         color: Sides.white,
-        firstMove: true
     }
 
     virtual["1C"].piece = {
+        name: Figures.bishop,
+        icon: "B",
+        color: Sides.white
+    }
+    virtual["1D"].piece = {
         name: Figures.queen,
         icon: "Q",
         color: Sides.white
     }
-
-    virtual["1D"].piece = {
-        name: Figures.rook,
-        icon: "R",
+    virtual["1E"].piece = {
+        name: Figures.king,
+        icon: "W",
         color: Sides.white
     }
-    virtual["1E"].piece = {
+    virtual["1F"].piece = {
+        name: Figures.bishop,
+        icon: "B",
+        color: Sides.white
+    }
+    virtual["1G"].piece = {
         name: Figures.knight,
         icon: "K",
         color: Sides.white
     }
-    virtual["1F"].piece = {
-        name: Figures.king,
-        icon: "W",
+    virtual["1H"].piece = {
+        name: Figures.rook,
+        icon: "R",
         color: Sides.white
+    }
+    for (let i = 0; i < 8; i++) {
+        const pos = `2${String.fromCharCode(65 + i)}`;
+
+        virtual[pos].piece = {
+            name: Figures.pawn,
+            icon: "P",
+            color: Sides.white,
+            firstMove: true,
+        }
     }
 }

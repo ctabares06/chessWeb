@@ -1,4 +1,4 @@
-import { axisFigure, movingPiece, virtualBoard } from "../types"
+import { GameStatus, axisFigure, movingPiece, virtualBoard } from "../types"
 import { getMoveCalc } from "../utils/moves"
 import useBearStore from "./store"
 
@@ -30,4 +30,13 @@ export const setPiecePostion = (origin: string, destiny: string) => useBearStore
       moving: {}
   }
       
+})
+
+export const setGameStatus = (status: GameStatus) => useBearStore.setState((state) => {
+  const game = state.game;
+  game.status = status
+
+  return {
+    game
+  }
 })
