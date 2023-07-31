@@ -20,7 +20,7 @@ const game: Game = {
 
 const useBearStore = create<BoardStore>()(devtools((set) => {
     const { board, list } = boardGenerator(8)
-    fillBoard(list)
+    // fillBoard(list)
 
     return {
         game: game,

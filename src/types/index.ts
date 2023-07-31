@@ -28,6 +28,7 @@ export interface BoardStore {
 }
 
 export interface Piece {
+    player: string
     name: Figures
     icon: string
     color: Sides
@@ -38,7 +39,8 @@ export interface Pawn extends Piece {
 }
 
 export enum Sides {
-    white, black
+    white = "white", 
+    black = "black"
 }
 
 export enum Figures {
@@ -54,7 +56,7 @@ export enum GameStatus {
     waiting, started, ended
 }
 
-interface Player {
+export interface Player {
     graveyard: Array<Piece>
     name: string | null
     color: Sides | null
@@ -62,7 +64,7 @@ interface Player {
 
 export type Game = {
     status: GameStatus,
-    player1: Player | Record<string, never>
-    player2: Player | Record<string, never>
+    player1: Player
+    player2: Player
     turn: string | null
 }

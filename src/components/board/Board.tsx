@@ -4,7 +4,6 @@ import Tile from './Tile';
 
 const Board: FC = () => {
     const board = useBearStore((state) => state.board)
-    const setPos = useBearStore(state => state.setPiecePostion)
 
     return (
         <>
@@ -14,9 +13,6 @@ const Board: FC = () => {
                 board.map((file, idx) => (<Tile key={idx} row={file} />))
             }
         </div>
-        <button onClick={() => {
-            setPos('1A', '2A')
-        }}>move</button>
         </>
     )
 };

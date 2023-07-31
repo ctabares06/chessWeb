@@ -5,6 +5,7 @@ import useBearStore, { setMovingPiece, setPiecePostion } from '../../store'
 const Slot: FC<{ slot: string }> = ({ slot }) => {
     const board = useBearStore((state) => state.virtualBoard)
     const moving = useBearStore(state => state.moving)
+    const game = useBearStore(state => state.game)
     const cell = board[slot]
     const piece = cell.piece
 
@@ -17,10 +18,8 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
             return setMovingPiece(cell, slot)
         }
 
-        for (let i = 0; i < moving.avMoves.length; i++) {
-            if(moving.avMoves[i] === slot) {
-                return setPiecePostion(moving.position, slot)
-            }
+        if(moving.avMoves.includes(slot)) {
+            return setPiecePostion(moving.position, slot)
         }
     }
 
