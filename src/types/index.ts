@@ -28,7 +28,6 @@ export interface BoardStore {
 }
 
 export interface Piece {
-    player: string
     name: Figures
     icon: string
     color: Sides
@@ -68,3 +67,5 @@ export type Game = {
     player2: Player
     turn: string | null
 }
+
+export type PlayerNoGrave = Omit<Player, "graveyard">

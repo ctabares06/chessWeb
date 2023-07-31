@@ -1,4 +1,5 @@
-import { GameStatus, axisFigure, movingPiece, virtualBoard } from "../types"
+import { GameStatus, PlayerNoGrave, axisFigure, movingPiece, virtualBoard } from "../types"
+import { fillBoard } from "../utils/initializers"
 import { getMoveCalc } from "../utils/moves"
 import useBearStore from "./store"
 
@@ -36,6 +37,31 @@ export const setGameStatus = (status: GameStatus) => useBearStore.setState((stat
   const game = state.game;
   game.status = status
 
+  return {
+    game
+  }
+})
+
+export const setPlayerInfo = (player: PlayerNoGrave, isPlayer1: boolean) => useBearStore.setState((state) => {
+  const playerKey = isPlayer1 === true ? 'player1' : 'player2'
+  const game = state.game;
+
+  return {
+    game : {
+      ...game,
+      [playerKey]: {
+        ...game[playerKey],
+        ...player
+      }
+    }
+  }
+})
+
+export const startGame = () => useBearStore.setState((state) => {
+  const game = state.game
+  game.status = GameStatus.started
+  game.turn = game.player1.name
+  fillBoard(state.virtualBoard)
   return {
     game
   }

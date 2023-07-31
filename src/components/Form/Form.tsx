@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { Player, Sides } from "../../types";
-
-type PlayerNoGrave = Omit<Player, "graveyard">
+import { Player, PlayerNoGrave, Sides } from "../../types";
 
 const Form: React.FC<{
   title: string
@@ -28,7 +26,7 @@ const Form: React.FC<{
   return (
     <div>
       <form action="" onSubmit={sendForm}>
-        <h3>player 1</h3>
+        <h3>{title}</h3>
         <input type="text" placeholder="name" value={name} onChange={handleStateChange(setName)} />
         <span>white</span>
         <input type="radio" name="side" id="" checked={side === 'white'} value="white" onChange={handleStateChange(setSide)}/>

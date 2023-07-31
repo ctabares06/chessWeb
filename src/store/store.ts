@@ -5,12 +5,12 @@ import { boardGenerator, fillBoard } from '../utils/initializers';
 
 const game: Game = {
     player1: {
-        name: null,
+        name: "",
         color: null,
         graveyard: [],
     },
     player2: {
-        name: null,
+        name: "",
         color: null,
         graveyard: [],
     },

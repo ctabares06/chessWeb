@@ -1,18 +1,23 @@
-import './App.css'
-import Board from './components/board/Board'
-import ConfigForm from './components/config'
-import useBearStore from './store'
+import "./App.css";
+import Board from "./components/board/Board";
+import ConfigForm from "./components/Form";
+import StepsPlayer from "./components/StepsPlayer/StepsPlayer";
+import { setPlayerInfo } from "./store";
+import useBearStore from "./store";
+import { GameStatus, PlayerNoGrave } from "./types";
 
 function App() {
-  const player1 = useBearStore((state) => state.game.player1)
-  const player2 = useBearStore((state) => state.game.player2)
+  const gameStatus = useBearStore((state) => state.game.status);
 
   return (
     <>
-      <Board />
-      <ConfigForm player={player1} title='Player 1' updatePlayer={console.log} key="player1" />
+      {gameStatus === GameStatus.waiting ? (
+        <StepsPlayer/>
+      ) : (
+        <Board />
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
