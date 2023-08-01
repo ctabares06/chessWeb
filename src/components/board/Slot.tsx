@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 import _ from "lodash";
 import useBearStore, { setMovingPiece, setPiecePostion } from "../../store";
 import { BoardStore, Player } from "../../types";
@@ -16,6 +16,7 @@ const getTurnColor = (state: BoardStore) => {
 };
 
 const Slot: FC<{ slot: string }> = ({ slot }) => {
+	const pieceContainer = useRef(null)
   const board = useBearStore((state) => state.virtualBoard);
   const moving = useBearStore((state) => state.moving);
   const game = useBearStore((state) => state.game);
@@ -42,17 +43,25 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
     }
   };
 
-  const renderSpot = () => {
-    if (!_.isEmpty(piece)) {
-      return piece.icon;
-    }
-    return;
-  };
+  const markIfAvMove = () => {
+		if(pieceContainer.current) {
+			if(moving.avMoves.includes(slot)) {
+				pieceContainer.current.style.backgroundColor = "red"
+			} else {
+				pieceContainer.current.style.backgroundColor = "transparent"
+			}
+		}
+  }
+
+	useEffect(() => {
+		markIfAvMove()
+	}, [moving])
 
   return (
     <div
       onClick={handleClickSlot}
       data-testid="slot"
+			ref={pieceContainer}
       style={{
         display: "inline-block",
         fontSize: "20px",
@@ -61,7 +70,9 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
         height: "50px",
       }}
     >
-      {renderSpot()}
+			{
+				piece && piece.icon
+			}
     </div>
   );
 };

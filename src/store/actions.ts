@@ -29,7 +29,9 @@ export const setPiecePostion = (origin: string, destiny: string) => useBearStore
   changeTurn()
   return {
       virtualBoard: {...copy},
-      moving: {}
+      moving: {
+        avMoves: []
+      }
   }
       
 })

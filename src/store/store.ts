@@ -26,7 +26,9 @@ const useBearStore = create<BoardStore>()(devtools((set) => {
         game: game,
         board: board,
         virtualBoard: list,
-        moving: {},
+        moving: {
+            avMoves: [],
+        },
     }
 }, { name: "chess" }))
 
