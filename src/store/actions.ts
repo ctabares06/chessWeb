@@ -26,6 +26,7 @@ export const setPiecePostion = (origin: string, destiny: string) => useBearStore
   copy[destiny].piece = piece
   copy[origin].piece = {}
 
+  changeTurn()
   return {
       virtualBoard: {...copy},
       moving: {}
@@ -64,5 +65,23 @@ export const startGame = () => useBearStore.setState((state) => {
   fillBoard(state.virtualBoard)
   return {
     game
+  }
+})
+
+export const changeTurn = () => useBearStore.setState((state) => {
+  const { player1, player2 } = state.game
+  let { turn } = state.game
+
+  if (turn === player1.name) {
+    turn = player2.name
+  } else {
+    turn = player1.name
+  }
+
+  return {
+    game: {
+      ...state.game,
+      turn,
+    }
   }
 })
