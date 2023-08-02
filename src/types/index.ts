@@ -55,6 +55,12 @@ export enum GameStatus {
     waiting, started, ended
 }
 
+export enum AvailablePositions {
+    valid = "valid",
+    invalid = "invalid",
+    last = "lat"
+}
+
 export interface Player {
     graveyard: Array<Piece>
     name: string | null

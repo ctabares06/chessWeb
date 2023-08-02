@@ -1,5 +1,5 @@
 import _ from "lodash"
-import { Board, Figures, Pawn, Piece, Sides, axisFigure, virtualBoard } from "../types"
+import { AvailablePositions, Board, Figures, Pawn, Piece, Sides, axisFigure, virtualBoard } from "../types"
 
 export function getMoveCalc(cell: axisFigure, board: Board, virtual: virtualBoard) : string[] {
   const { piece, row, col } = cell;
@@ -102,7 +102,9 @@ function knightMoveCalc(row: number, col: number, board: Board, virtual: virtual
 
     const pos = board[col+currentCom.y][row+currentCom.x]
 
-    if (isValidPos(virtual[pos].piece, color)) {
+    const validPos = isValidPos(virtual[pos].piece, color)
+
+    if (validPos === AvailablePositions.valid || validPos === AvailablePositions.last) {
       moves.push(pos)
     }
 
@@ -131,8 +133,9 @@ function kingMoveCalc(row: number, col: number, board: Board, virtual: virtualBo
     }
 
     const pos = board[col+currentCom.y][row+currentCom.x]
+    const validPos = isValidPos(virtual[pos].piece, color)
 
-    if (isValidPos(virtual[pos].piece, color)) {
+    if (validPos === AvailablePositions.valid || validPos === AvailablePositions.last) {
       moves.push(pos)
     }
 
@@ -156,13 +159,19 @@ function moveStraightUp(row: number, col: number, board: Board, virtual: virtual
       break;
     }
     const pos = board[currentCol][row]
+    const validPos = isValidPos(virtual[pos].piece, color)
 
-    if (isValidPos(virtual[pos].piece, color)) {
+    if (validPos === AvailablePositions.valid) {
       moves.push(pos)
       continue
     }
 
-    break;
+    if (validPos === AvailablePositions.last) {
+      moves.push(pos)
+      break
+    }
+
+    break
   }
 
   return moves
@@ -181,13 +190,19 @@ function moveStraightDown(row: number, col: number, board: Board, virtual: virtu
       break;
     }
     const pos = board[currentCol][row]
+    const validPos = isValidPos(virtual[pos].piece, color)
 
-    if (isValidPos(virtual[pos].piece, color)) {
+    if (validPos === AvailablePositions.valid) {
       moves.push(pos)
       continue
     }
 
-    break;
+    if (validPos === AvailablePositions.last) {
+      moves.push(pos)
+      break
+    }
+
+    break
   }
 
   return moves
@@ -207,13 +222,19 @@ function moveStraightRight(row: number, col: number, board: Board, virtual: virt
     }
 
     const pos = board[col][currentRow]
+    const validPos = isValidPos(virtual[pos].piece, color)
 
-    if (isValidPos(virtual[pos].piece, color)) {
+    if (validPos === AvailablePositions.valid) {
       moves.push(pos)
       continue
     }
 
-    break;
+    if (validPos === AvailablePositions.last) {
+      moves.push(pos)
+      break
+    }
+
+    break
   }
 
   return moves
@@ -233,13 +254,19 @@ function moveStraightLeft(row: number, col: number, board: Board, virtual: virtu
     }
 
     const pos = board[col][currentRow]
+    const validPos = isValidPos(virtual[pos].piece, color)
 
-    if (isValidPos(virtual[pos].piece, color)) {
+    if (validPos === AvailablePositions.valid) {
       moves.push(pos)
       continue
     }
 
-    break;
+    if (validPos === AvailablePositions.last) {
+      moves.push(pos)
+      break
+    }
+
+    break
   }
 
   return moves
@@ -267,13 +294,19 @@ function moveRightUp(row: number, col: number, board: Board, virtual: virtualBoa
     }
 
     const pos = board[currentCol][currentRow]
+    const validPos = isValidPos(virtual[pos].piece, color)
 
-    if (isValidPos(virtual[pos].piece, color)) {
+    if (validPos === AvailablePositions.valid) {
       moves.push(pos)
       continue
     }
 
-    break;
+    if (validPos === AvailablePositions.last) {
+      moves.push(pos)
+      break
+    }
+
+    break
   }
 
   return moves
@@ -301,13 +334,19 @@ function moveLeftUp(row: number, col: number, board: Board, virtual: virtualBoar
     }
 
     const pos = board[currentCol][currentRow]
+    const validPos = isValidPos(virtual[pos].piece, color)
 
-    if (isValidPos(virtual[pos].piece, color)) {
+    if (validPos === AvailablePositions.valid) {
       moves.push(pos)
       continue
     }
 
-    break;
+    if (validPos === AvailablePositions.last) {
+      moves.push(pos)
+      break
+    }
+
+    break
   }
 
   return moves
@@ -335,13 +374,19 @@ function moveRightDown(row: number, col: number, board: Board, virtual: virtualB
     }
 
     const pos = board[currentCol][currentRow]
+    const validPos = isValidPos(virtual[pos].piece, color)
 
-    if (isValidPos(virtual[pos].piece, color)) {
+    if (validPos === AvailablePositions.valid) {
       moves.push(pos)
       continue
     }
 
-    break;
+    if (validPos === AvailablePositions.last) {
+      moves.push(pos)
+      break
+    }
+
+    break
   }
 
   return moves
@@ -369,25 +414,31 @@ function moveLeftDown(row: number, col: number, board: Board, virtual: virtualBo
     }
 
     const pos = board[currentCol][currentRow]
+    const validPos = isValidPos(virtual[pos].piece, color)
 
-    if (isValidPos(virtual[pos].piece, color)) {
+    if (validPos === AvailablePositions.valid) {
       moves.push(pos)
       continue
     }
 
-    break;
+    if (validPos === AvailablePositions.last) {
+      moves.push(pos)
+      break
+    }
+
+    break
   }
 
   return moves
 }
 
-const isValidPos = (piece: Piece, color: Sides) => {
+const isValidPos = (piece: Piece, color: Sides): AvailablePositions => {
   if(_.isEmpty(piece)) {
-    return true
+    return AvailablePositions.valid
   } else if (color !== piece.color) {
-    return true
+    return AvailablePositions.last
   } else {
-    return false
+    return AvailablePositions.invalid
   }
 }
 
