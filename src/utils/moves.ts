@@ -26,19 +26,50 @@ export function getMoveCalc(cell: axisFigure, board: Board, virtual: virtualBoar
 
 function pawnMoveCalc(figure: Pawn, row: number, col: number, board: Board, virtual: virtualBoard, color: Sides) {
   const moves = []
-  let counter = 1
+  let selectedColor;
+
+  const whiteMoves = [
+    { x: 0, y: 1, eating: false },
+    { x: -1, y: 1, eating: true },
+    { x: 1, y: 1, eating: true },
+  ]
+
+  const blackMoves = [
+    { x: 0, y: -1, eating: false },
+    { x: -1, y: -1, eating: true },
+    { x: 1, y: -1, eating: true },
+  ]
 
   if (figure.firstMove) {
-    counter = 2
+    whiteMoves.push({ x: 0, y: 2, eating: false })
+    blackMoves.push({ x: 0, y: -2, eating: false })
   }
 
-  for (let i = 1; i <= counter; i++) {
-    if(board[col + i]) {
-      const pos = board[col + i][row]
-      if (_.isEmpty(virtual[pos].piece)) {
-        moves.push(pos)
-      }
+  if(color === Sides.white) {
+    selectedColor = whiteMoves
+  } else {
+    selectedColor = blackMoves
+  }
+
+  for (let i = 0; i <selectedColor.length; i++) {
+    const { x, y ,eating } = selectedColor[i]
+    if (!board[col + y]) {
+      continue;
     }
+
+    if (!board[col + y][row + x]) {
+      continue;
+    }
+
+    const pos = board[col + y][row + x];
+    const validPosition = isValidPos(virtual[pos].piece, color)
+
+    if (eating === false && validPosition === AvailablePositions.valid) {
+      moves.push(pos)
+    } else if (eating === true && validPosition === AvailablePositions.last) {
+      moves.push(pos)
+    }
+    
   }
 
   return moves
