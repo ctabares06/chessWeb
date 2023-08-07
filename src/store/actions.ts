@@ -1,4 +1,4 @@
-import { GameStatus, PlayerNoGrave, axisFigure, movingPiece, virtualBoard } from "../types"
+import { GameStatus, Piece, PlayerNoGrave, Sides, axisFigure, movingPiece, virtualBoard } from "../types"
 import { fillBoard } from "../utils/initializers"
 import { getMoveCalc } from "../utils/moves"
 import useBearStore from "./store"
@@ -26,7 +26,6 @@ export const setPiecePostion = (origin: string, destiny: string) => useBearStore
   copy[destiny].piece = piece
   copy[origin].piece = {}
 
-  changeTurn()
   return {
       virtualBoard: {...copy},
       moving: {
@@ -84,6 +83,29 @@ export const changeTurn = () => useBearStore.setState((state) => {
     game: {
       ...state.game,
       turn,
+    }
+  }
+})
+
+export const eatPiece = (slot: string, piece: Piece, color: Sides) => useBearStore.setState((state) => {
+
+  const virtual = state.virtualBoard
+  const game = state.game
+  const newFigure = virtual[state.moving.position].piece
+  virtual[slot].piece = newFigure
+  virtual[state.moving.position].piece = {}
+  
+  if (color === Sides.white) {
+    game.player2.graveyard.push(piece)
+  } else {
+    game.player1.graveyard.push(piece)
+  }
+
+  return {
+    game: {...game},
+    virtualBoard: {...virtual},
+    moving: {
+      avMoves: [],
     }
   }
 })

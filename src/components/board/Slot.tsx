@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef } from "react";
 import _ from "lodash";
-import useBearStore, { setMovingPiece, setPiecePostion } from "../../store";
+import useBearStore, { changeTurn, eatPiece, setMovingPiece, setPiecePostion } from "../../store";
 import { BoardStore, Player } from "../../types";
 
 const getTurnColor = (state: BoardStore) => {
@@ -32,14 +32,16 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
 
     if (!_.isEmpty(piece)) {
 			if(color !== piece.color) {
-				return
+				eatPiece(slot, piece, color)
+        return changeTurn()
 			}
 
       return setMovingPiece(cell, slot);
     }
 
     if (moving.avMoves.includes(slot)) {
-      return setPiecePostion(moving.position, slot);
+      setPiecePostion(moving.position, slot);
+      return changeTurn()
     }
   };
 
