@@ -1,17 +1,17 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { BoardStore, Game, GameStatus } from '../types'
+import { BoardStore, Game, GameStatus, Sides } from '../types'
 import { boardGenerator, fillBoard } from '../utils/initializers';
 
 const game: Game = {
-    player1: {
+    [Sides.white]: {
         name: "",
-        color: null,
+        check: false,
         graveyard: [],
     },
-    player2: {
+    [Sides.black]: {
         name: "",
-        color: null,
+        check: false,
         graveyard: [],
     },
     status: GameStatus.waiting,

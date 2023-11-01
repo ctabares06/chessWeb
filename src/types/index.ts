@@ -63,15 +63,15 @@ export enum AvailablePositions {
 
 export interface Player {
     graveyard: Array<Piece>
-    name: string | null
-    color: Sides | null
+    name: string
+    check: boolean
 }
 
 export type Game = {
     status: GameStatus,
-    player1: Player
-    player2: Player
-    turn: string | null
+    [Sides.white]: Player
+    [Sides.black]: Player
+    turn: Sides
 }
 
 export type PlayerNoGrave = Omit<Player, "graveyard">

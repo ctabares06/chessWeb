@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ConfigForm from "../Form";
-import useBearStore, { setPlayerInfo, startGame } from "../../store";
-import { PlayerNoGrave } from "../../types";
+import { setPlayerInfo, startGame } from "../../store";
+import { Sides } from "../../types";
 
 const StepsPlayer: React.FC = () => {
-  const player1 = useBearStore((state) => state.game.player1);
-  const player2 = useBearStore((state) => state.game.player2);
   const [stepController, setStepController] = useState(0);
+  const [defaultSide, setDefaultSide] = useState(Sides.white);
 
-  const setSelectedPlayerInfo =
-    (isPlayer1: boolean) => (player: PlayerNoGrave) => {
-      setPlayerInfo(player, isPlayer1)
+  const fillForm = (name: string, side: Sides) => {
+      setPlayerInfo(name, side)
+      if (side === Sides.white) {
+        setDefaultSide(Sides.black)
+      } else {
+        setDefaultSide(Sides.white)
+      }
       if (stepController === steps.length-1) {
         startGame()
         return
@@ -21,18 +24,20 @@ const StepsPlayer: React.FC = () => {
   const steps = [
     () => (
       <ConfigForm
-        player={player1}
         title="Player 1"
         key="player1"
-        updatePlayer={setSelectedPlayerInfo(true)}
+        buttonText="next"
+        defaultSide={defaultSide}
+        updatePlayer={fillForm}
       />
     ),
     () => (
       <ConfigForm
-        player={player2}
         title="Player 2"
         key="player2"
-        updatePlayer={setSelectedPlayerInfo(false)}
+        buttonText="start game"
+        defaultSide={defaultSide}
+        updatePlayer={fillForm}
       />
     ),
   ];

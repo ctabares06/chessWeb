@@ -44,16 +44,15 @@ export const setGameStatus = (status: GameStatus) => useBearStore.setState((stat
   }
 })
 
-export const setPlayerInfo = (player: PlayerNoGrave, isPlayer1: boolean) => useBearStore.setState((state) => {
-  const playerKey = isPlayer1 === true ? 'player1' : 'player2'
+export const setPlayerInfo = (name: string, side: Sides) => useBearStore.setState((state) => {
   const game = state.game;
 
   return {
     game : {
       ...game,
-      [playerKey]: {
-        ...game[playerKey],
-        ...player
+      [side]: {
+        ...game[side],
+        name,
       }
     }
   }
@@ -62,7 +61,7 @@ export const setPlayerInfo = (player: PlayerNoGrave, isPlayer1: boolean) => useB
 export const startGame = () => useBearStore.setState((state) => {
   const game = state.game
   game.status = GameStatus.started
-  game.turn = game.player1.name
+  game.turn = Sides.white
   fillBoard(state.virtualBoard)
   return {
     game
@@ -70,13 +69,12 @@ export const startGame = () => useBearStore.setState((state) => {
 })
 
 export const changeTurn = () => useBearStore.setState((state) => {
-  const { player1, player2 } = state.game
   let { turn } = state.game
 
-  if (turn === player1.name) {
-    turn = player2.name
+  if (turn === Sides.white) {
+    turn = Sides.black
   } else {
-    turn = player1.name
+    turn = Sides.white
   }
 
   return {
@@ -88,7 +86,6 @@ export const changeTurn = () => useBearStore.setState((state) => {
 })
 
 export const eatPiece = (slot: string, piece: Piece, color: Sides) => useBearStore.setState((state) => {
-
   const virtual = state.virtualBoard
   const game = state.game
   const newFigure = virtual[state.moving.position].piece
@@ -96,9 +93,9 @@ export const eatPiece = (slot: string, piece: Piece, color: Sides) => useBearSto
   virtual[state.moving.position].piece = {}
   
   if (color === Sides.white) {
-    game.player2.graveyard.push(piece)
+    game[Sides.black].graveyard.push(piece)
   } else {
-    game.player1.graveyard.push(piece)
+    game[Sides.white].graveyard.push(piece)
   }
 
   return {

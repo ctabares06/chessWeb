@@ -4,19 +4,11 @@ import useBearStore, { changeTurn, eatPiece, setMovingPiece, setPiecePostion } f
 import { BoardStore, Player } from "../../types";
 
 const getTurnColor = (state: BoardStore) => {
-  let player: Player;
-
-  if (state.game.turn === state.game.player1.name) {
-    player = state.game.player1;
-  } else {
-    player = state.game.player2;
-  }
-
-  return player.color;
+  return state.game.turn
 };
 
 const Slot: FC<{ slot: string }> = ({ slot }) => {
-	const pieceContainer = useRef(null)
+  const pieceContainer = useRef(null)
   const board = useBearStore((state) => state.virtualBoard);
   const moving = useBearStore((state) => state.moving);
   const game = useBearStore((state) => state.game);
@@ -31,12 +23,14 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
     }
 
     if (!_.isEmpty(piece)) {
-			if(color !== piece.color) {
-				eatPiece(slot, piece, color)
+      if (color !== piece.color && moving.avMoves.includes(slot)) {
+        eatPiece(slot, piece, color)
         return changeTurn()
-			}
+      } 
 
-      return setMovingPiece(cell, slot);
+      if (color === piece.color) {
+        return setMovingPiece(cell, slot);
+      }
     }
 
     if (moving.avMoves.includes(slot)) {
@@ -46,35 +40,36 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
   };
 
   const markIfAvMove = () => {
-		if(pieceContainer.current) {
-			if(moving.avMoves.includes(slot)) {
-				pieceContainer.current.style.backgroundColor = "red"
-			} else {
-				pieceContainer.current.style.backgroundColor = "transparent"
-			}
-		}
+    if (pieceContainer.current) {
+      if (moving.avMoves.includes(slot)) {
+        pieceContainer.current.style.backgroundColor = "red"
+      } else {
+        pieceContainer.current.style.backgroundColor = "transparent"
+      }
+    }
   }
 
-	useEffect(() => {
-		markIfAvMove()
-	}, [moving])
+  useEffect(() => {
+    markIfAvMove()
+  }, [moving])
 
   return (
     <div
       onClick={handleClickSlot}
       data-testid="slot"
-			ref={pieceContainer}
+      ref={pieceContainer}
       style={{
         display: "inline-block",
         fontSize: "20px",
         border: "2px solid darkred",
         width: "50px",
         height: "50px",
+        color: piece.color,
       }}
     >
-			{
-				piece && piece.icon
-			}
+      {
+        piece && piece.icon
+      }
     </div>
   );
 };

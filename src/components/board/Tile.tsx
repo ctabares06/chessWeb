@@ -7,7 +7,7 @@ interface TileProps {
 
 const Tile: FC<TileProps> = ({ row }) => {
     return (
-        <div>
+        <div style={{ display: "flex" }}>
             {
                 row.map((slot) => (<Slot key={slot} slot={slot} />))
             }
