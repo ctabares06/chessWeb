@@ -1,4 +1,4 @@
-import { GameStatus, Piece, PlayerNoGrave, Sides, axisFigure, movingPiece, virtualBoard } from "../types"
+import { GameStatus, Piece, Sides, axisFigure, movingPiece, virtualBoard } from "../types"
 import { fillBoard } from "../utils/initializers"
 import { getMoveCalc } from "../utils/moves"
 import useBearStore from "./store"
@@ -61,7 +61,7 @@ export const setPlayerInfo = (name: string, side: Sides) => useBearStore.setStat
 export const startGame = () => useBearStore.setState((state) => {
   const game = state.game
   game.status = GameStatus.started
-  game.turn = Sides.white
+ 
   fillBoard(state.virtualBoard)
   return {
     game
@@ -104,5 +104,14 @@ export const eatPiece = (slot: string, piece: Piece, color: Sides) => useBearSto
     moving: {
       avMoves: [],
     }
+  }
+})
+
+const calcKingChecks = () => useBearStore.setState((state) => {
+  const color = state.game.turn;
+  const side = state.game[color];
+
+  return {
+    ...state
   }
 })

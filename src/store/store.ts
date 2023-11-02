@@ -15,7 +15,7 @@ const game: Game = {
         graveyard: [],
     },
     status: GameStatus.waiting,
-    turn: null
+    turn: Sides.white
 }
 
 const useBearStore = create<BoardStore>()(devtools((set) => {

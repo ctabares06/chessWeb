@@ -8,7 +8,7 @@ export type BoardWithList = {
 export type axisFigure = {
     col: number
     row: number
-    piece: Piece | Pawn | Record<string,never>
+    piece: Piece | Pawn | Record<string, never>
 }
 
 export type virtualBoard = {
@@ -38,17 +38,17 @@ export interface Pawn extends Piece {
 }
 
 export enum Sides {
-    white = "white", 
+    white = "white",
     black = "black"
 }
 
 export enum Figures {
-    pawn,
-    rook,
-    bishop,
-    knight,
-    queen,
-    king,
+    pawn = "pawn",
+    rook = "rook",
+    bishop = "bishop",
+    knight = "knight",
+    queen = "queen",
+    king = "king"
 }
 
 export enum GameStatus {
@@ -73,5 +73,3 @@ export type Game = {
     [Sides.black]: Player
     turn: Sides
 }
-
-export type PlayerNoGrave = Omit<Player, "graveyard">

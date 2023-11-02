@@ -1,7 +1,8 @@
 import _ from "lodash"
 import { AvailablePositions, Board, Figures, Pawn, Piece, Sides, axisFigure, virtualBoard } from "../types"
+import { toAsync } from "./promisify"
 
-export function getMoveCalc(cell: axisFigure, board: Board, virtual: virtualBoard) : string[] {
+export function getMoveCalc(cell: axisFigure, board: Board, virtual: virtualBoard): string[] {
   const { piece, row, col } = cell;
   switch (piece.name) {
     case Figures.pawn:
@@ -45,14 +46,14 @@ function pawnMoveCalc(figure: Pawn, row: number, col: number, board: Board, virt
     blackMoves.push({ x: 0, y: -2, eating: false })
   }
 
-  if(color === Sides.white) {
+  if (color === Sides.white) {
     selectedColor = whiteMoves
   } else {
     selectedColor = blackMoves
   }
 
-  for (let i = 0; i <selectedColor.length; i++) {
-    const { x, y ,eating } = selectedColor[i]
+  for (let i = 0; i < selectedColor.length; i++) {
+    const { x, y, eating } = selectedColor[i]
     if (!board[col + y]) {
       continue;
     }
@@ -69,7 +70,7 @@ function pawnMoveCalc(figure: Pawn, row: number, col: number, board: Board, virt
     } else if (eating === true && validPosition === AvailablePositions.last) {
       moves.push(pos)
     }
-    
+
   }
 
   return moves
@@ -115,23 +116,22 @@ function queenMoveCalc(row: number, col: number, board: Board, virtual: virtualB
 function knightMoveCalc(row: number, col: number, board: Board, virtual: virtualBoard, color: Sides) {
   const moves = []
   const combinations = [
-    {y: 2, x: 1}, {y: 2, x: -1}, {y: -2, x: 1}, {y: -2, x: -1},
-    {y: 1, x: 2}, {y: 1, x: -2}, {y: -1, x: 2}, {y: -1, x: -2},
+    { y: 2, x: 1 }, { y: 2, x: -1 }, { y: -2, x: 1 }, { y: -2, x: -1 },
+    { y: 1, x: 2 }, { y: 1, x: -2 }, { y: -1, x: 2 }, { y: -1, x: -2 },
   ]
 
   for (let i = 0; i < combinations.length; i++) {
     const currentCom = combinations[i]
-    console.log(col+currentCom.y, row+currentCom.x) 
-    
-    if(!board[col+currentCom.y]) {
+
+    if (!board[col + currentCom.y]) {
       continue;
     }
 
-    if(!board[col+currentCom.y][row+currentCom.x]) {
+    if (!board[col + currentCom.y][row + currentCom.x]) {
       continue;
     }
 
-    const pos = board[col+currentCom.y][row+currentCom.x]
+    const pos = board[col + currentCom.y][row + currentCom.x]
 
     const validPos = isValidPos(virtual[pos].piece, color)
 
@@ -147,23 +147,22 @@ function knightMoveCalc(row: number, col: number, board: Board, virtual: virtual
 function kingMoveCalc(row: number, col: number, board: Board, virtual: virtualBoard, color: Sides) {
   const moves = []
   const combinations = [
-    {y: 1, x: -1}, {y: 1, x: 0}, {y: 1, x: 1}, {y: 1, x: 0},
-    {y: -1, x: 1}, {y: -1, x: 0}, {y: -1, x: -1}, {y: 0, x: -1},
+    { y: 1, x: -1 }, { y: 1, x: 1 }, { y: 1, x: 0 }, { y: -1, x: 1 },
+    { y: -1, x: 0 }, { y: -1, x: -1 }, { y: 0, x: -1 }, { y: 0, x: 1 }
   ]
 
   for (let i = 0; i < combinations.length; i++) {
     const currentCom = combinations[i]
-    console.log(col+currentCom.y, row+currentCom.x) 
-    
-    if(!board[col+currentCom.y]) {
+
+    if (!board[col + currentCom.y]) {
       continue;
     }
 
-    if(!board[col+currentCom.y][row+currentCom.x]) {
+    if (!board[col + currentCom.y][row + currentCom.x]) {
       continue;
     }
 
-    const pos = board[col+currentCom.y][row+currentCom.x]
+    const pos = board[col + currentCom.y][row + currentCom.x]
     const validPos = isValidPos(virtual[pos].piece, color)
 
     if (validPos === AvailablePositions.valid || validPos === AvailablePositions.last) {
@@ -185,7 +184,7 @@ function moveStraightUp(row: number, col: number, board: Board, virtual: virtual
   while (!done) {
     currentCol += 1
 
-    if(!board[currentCol]) {
+    if (!board[currentCol]) {
       done = true;
       break;
     }
@@ -216,7 +215,7 @@ function moveStraightDown(row: number, col: number, board: Board, virtual: virtu
   while (!done) {
     currentCol -= 1
 
-    if(!board[currentCol]) {
+    if (!board[currentCol]) {
       done = true;
       break;
     }
@@ -247,7 +246,7 @@ function moveStraightRight(row: number, col: number, board: Board, virtual: virt
   while (!done) {
     currentRow += 1
 
-    if(!board[col][currentRow]) {
+    if (!board[col][currentRow]) {
       done = true;
       break;
     }
@@ -279,7 +278,7 @@ function moveStraightLeft(row: number, col: number, board: Board, virtual: virtu
   while (!done) {
     currentRow -= 1
 
-    if(!board[col][currentRow]) {
+    if (!board[col][currentRow]) {
       done = true;
       break;
     }
@@ -309,17 +308,17 @@ function moveRightUp(row: number, col: number, board: Board, virtual: virtualBoa
   let currentRow = row
   let currentCol = col
 
-  while(!done) {
+  while (!done) {
     currentRow += 1;
     currentCol += 1;
 
-    if(!board[currentCol]) {
+    if (!board[currentCol]) {
       done = true;
       break;
 
     }
 
-    if(!board[currentCol][currentRow]) {
+    if (!board[currentCol][currentRow]) {
       done = true;
       break;
     }
@@ -349,17 +348,17 @@ function moveLeftUp(row: number, col: number, board: Board, virtual: virtualBoar
   let currentRow = row
   let currentCol = col
 
-  while(!done) {
+  while (!done) {
     currentRow -= 1;
     currentCol += 1;
 
-    if(!board[currentCol]) {
+    if (!board[currentCol]) {
       done = true;
       break;
 
     }
 
-    if(!board[currentCol][currentRow]) {
+    if (!board[currentCol][currentRow]) {
       done = true;
       break;
     }
@@ -389,17 +388,17 @@ function moveRightDown(row: number, col: number, board: Board, virtual: virtualB
   let currentRow = row
   let currentCol = col
 
-  while(!done) {
+  while (!done) {
     currentRow += 1;
     currentCol -= 1;
 
-    if(!board[currentCol]) {
+    if (!board[currentCol]) {
       done = true;
       break;
 
     }
 
-    if(!board[currentCol][currentRow]) {
+    if (!board[currentCol][currentRow]) {
       done = true;
       break;
     }
@@ -429,17 +428,17 @@ function moveLeftDown(row: number, col: number, board: Board, virtual: virtualBo
   let currentRow = row
   let currentCol = col
 
-  while(!done) {
+  while (!done) {
     currentRow -= 1;
     currentCol -= 1;
 
-    if(!board[currentCol]) {
+    if (!board[currentCol]) {
       done = true;
       break;
 
     }
 
-    if(!board[currentCol][currentRow]) {
+    if (!board[currentCol][currentRow]) {
       done = true;
       break;
     }
@@ -464,7 +463,7 @@ function moveLeftDown(row: number, col: number, board: Board, virtual: virtualBo
 }
 
 const isValidPos = (piece: Piece, color: Sides): AvailablePositions => {
-  if(_.isEmpty(piece)) {
+  if (_.isEmpty(piece)) {
     return AvailablePositions.valid
   } else if (color !== piece.color) {
     return AvailablePositions.last
@@ -474,3 +473,24 @@ const isValidPos = (piece: Piece, color: Sides): AvailablePositions => {
 }
 
 // calc functions
+
+export const kingAllPossibleChecks = (cell: axisFigure, board: Board, virtual: virtualBoard) : Promise<string[]> => {
+  return getAllMovements(cell.row, cell.col, board, virtual, cell.piece.color)
+}
+
+const getAllMovements = (row: number, col: number, board: Board, virtualBoard: virtualBoard, color: Sides) => {
+  const up = toAsync(() => moveStraightUp(row, col, board, virtualBoard, color))
+  const leftUp = toAsync(() => moveLeftUp(row, col, board, virtualBoard, color))
+  const left = toAsync(() => moveStraightLeft(row, col, board, virtualBoard, color))
+  const leftDown = toAsync(() => moveLeftDown(row, col, board, virtualBoard, color))
+  const down = toAsync(() => moveStraightDown(row, col, board, virtualBoard, color))
+  const rightDown = toAsync(() => moveRightDown(row, col, board, virtualBoard, color))
+  const right = toAsync(() => moveStraightRight(row, col, board, virtualBoard, color))
+  const rightUp = toAsync(() => moveRightUp(row, col, board, virtualBoard, color))
+  const lMove = toAsync(() => knightMoveCalc(row, col, board, virtualBoard, color))
+
+  return Promise.all([up, leftUp, left, leftDown, down, rightDown, right, rightUp, lMove]).then((results) => {
+    const positionsFlat = _.flattenDeep(results);
+    return new Set(positionsFlat) as unknown as string[];
+  })
+}
