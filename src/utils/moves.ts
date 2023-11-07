@@ -474,8 +474,18 @@ const isValidPos = (piece: Piece, color: Sides): AvailablePositions => {
 
 // calc functions
 
-export const kingAllPossibleChecks = (cell: axisFigure, board: Board, virtual: virtualBoard) : Promise<string[]> => {
-  return getAllMovements(cell.row, cell.col, board, virtual, cell.piece.color)
+export const isKingCheck = (cell: axisFigure, board: Board, virtual: virtualBoard, slot: string) : Promise<boolean> => {
+  const oppositeColor = cell.piece.color === Sides.white ? Sides.black : Sides.white;
+  return getAllMovements(cell.row, cell.col, board, virtual, cell.piece.color).then(positions => {
+    for (let pointer of positions) {
+      if (!_.isEmpty(virtual[pointer]) && virtual[pointer].piece.color === oppositeColor) {
+        const pointerCell = virtual[pointer];
+        const pointerMoves = new Set(getMoveCalc(pointerCell, board, virtual));
+        return pointerMoves.has(slot);
+      }
+    }
+    return false;
+  })
 }
 
 const getAllMovements = (row: number, col: number, board: Board, virtualBoard: virtualBoard, color: Sides) => {
@@ -491,6 +501,6 @@ const getAllMovements = (row: number, col: number, board: Board, virtualBoard: v
 
   return Promise.all([up, leftUp, left, leftDown, down, rightDown, right, rightUp, lMove]).then((results) => {
     const positionsFlat = _.flattenDeep(results);
-    return new Set(positionsFlat) as unknown as string[];
+    return new Set(positionsFlat);
   })
 }

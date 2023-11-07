@@ -107,11 +107,16 @@ export const eatPiece = (slot: string, piece: Piece, color: Sides) => useBearSto
   }
 })
 
-const calcKingChecks = () => useBearStore.setState((state) => {
-  const color = state.game.turn;
-  const side = state.game[color];
-
+export const setCheck = (side: Sides, check: boolean) => useBearStore.setState((state) => {
+  const player = state.game[side];
   return {
-    ...state
+    ...state,
+    game: {
+      ...state.game,
+      [side]: {
+        ...player,
+        check,
+      }
+    }
   }
 })

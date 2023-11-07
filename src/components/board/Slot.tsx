@@ -1,29 +1,18 @@
 import React, { FC, useEffect, useRef } from "react";
 import _ from "lodash";
-import useBearStore, { changeTurn, eatPiece, setMovingPiece, setPiecePostion } from "../../store";
-import { BoardStore, Figures } from "../../types";
-import { kingAllPossibleChecks } from "../../utils/moves";
-
-const getTurnColor = (state: BoardStore) => {
-  return state.game.turn
-};
+import useBearStore, { changeTurn, eatPiece, setMovingPiece, setPiecePostion, setCheck } from "../../store";
+import { Figures } from "../../types";
+import { isKingCheck } from "../../utils/moves";
 
 const Slot: FC<{ slot: string }> = ({ slot }) => {
   const pieceContainer = useRef<HTMLDivElement | null>(null);
   const board = useBearStore((state) => state.board);
   const virtualBoard = useBearStore((state) => state.virtualBoard);
   const moving = useBearStore((state) => state.moving);
-  const game = useBearStore((state) => state.game);
-  const color = useBearStore(getTurnColor);
+  const color = useBearStore((state) => state.game.turn);
 
   const cell = virtualBoard[slot];
   const piece = cell.piece;
-
-  const isKingCheck = () => {
-    if (piece.name === Figures.king) {
-      kingAllPossibleChecks(cell, board, virtualBoard).then(results => console.log(results))
-    }
-  }
 
   const handleClickSlot = () => {
     if (_.isEmpty(moving) && _.isEmpty(piece)) {
@@ -63,9 +52,11 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
   }, [moving])
 
   useEffect(() => {
-    console.log(slot);
-    isKingCheck()
-  }, [piece])
+    if (piece.name === Figures.king) {
+      isKingCheck(cell, board, virtualBoard, slot)
+        .then(isCheck => setCheck(piece.color, isCheck))
+    }
+  }, [virtualBoard])
 
   return (
     <div
