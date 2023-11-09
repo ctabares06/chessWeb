@@ -6,21 +6,24 @@ export abstract class BasePiece {
     name: Figures
     icon: string
     color: Sides
+    waitNotification: boolean
 
-    constructor(name: Figures, icon: string, color: Sides) {
+    constructor(name: Figures, icon: string, color: Sides, waitNotification: boolean) {
         this.name = name
         this.icon = icon
         this.color = color
+        this.waitNotification = waitNotification
     }
 
+    abstract notify(): void
     abstract calcMove(row: number, col: number, board: Board, virtual: virtualBoard): string[]
 }
 
 export class Pawn extends BasePiece {
     firstMove: boolean
 
-    constructor(name: Figures, icon: string, color: Sides) {
-        super(name, icon, color)
+    constructor(name: Figures, icon: string, color: Sides, waitNotification: boolean) {
+        super(name, icon, color, waitNotification)
         this.firstMove = true;
     }
 
@@ -44,7 +47,6 @@ export class Pawn extends BasePiece {
         if (this.firstMove) {
             whiteMoves.push({ x: 0, y: 2, eating: false })
             blackMoves.push({ x: 0, y: -2, eating: false })
-            this.firstMove = false;
         }
 
         if (this.color === Sides.white) {
@@ -77,10 +79,18 @@ export class Pawn extends BasePiece {
         return moves
     }
 
+    notify() {
+        if (this.firstMove) {
+            this.firstMove = false;
+        }
+    }
 
 }
 
 export class Knight extends BasePiece {
+    notify(): void {
+        
+    }
     calcMove(row: number, col: number, board: Board, virtual: virtualBoard): string[] {
         const movement = new Movements(col, row)
         const moves = []
@@ -115,6 +125,9 @@ export class Knight extends BasePiece {
 }
 
 export class Rook extends BasePiece {
+    notify(): void {
+        
+    }
     calcMove(row: number, col: number, board: Board, virtual: virtualBoard): string[] {
         const movement = new Movements(col, row);
         const moves = [
@@ -129,6 +142,9 @@ export class Rook extends BasePiece {
 }
 
 export class Bishop extends BasePiece {
+    notify(): void {
+        
+    }
     calcMove(row: number, col: number, board: Board, virtual: virtualBoard): string[] {
         const movement = new Movements(col, row);
         const moves = [
@@ -143,6 +159,9 @@ export class Bishop extends BasePiece {
 }
 
 export class Queen extends BasePiece {
+    notify(): void {
+        
+    }
     calcMove(row: number, col: number, board: Board, virtual: virtualBoard): string[] {
         const movement = new Movements(col, row);
         const moves = [
@@ -161,6 +180,9 @@ export class Queen extends BasePiece {
 }
 
 export class King extends BasePiece {
+    notify(): void {
+        
+    }
     calcMove(row: number, col: number, board: Board, virtual: virtualBoard): string[] {
         const movement = new Movements(col, row);
         const moves = []
@@ -196,17 +218,17 @@ export class King extends BasePiece {
 export function pieceDiscriminator(name: Figures, color: Sides): BasePieceInstance {
     switch (name) {
         case Figures.pawn:
-            return new Pawn(name, 'P', color)
+            return new Pawn(name, 'P', color, true)
         case Figures.bishop:
-            return new Bishop(name, 'B', color)
+            return new Bishop(name, 'B', color, false)
         case Figures.knight:
-            return new Knight(name, 'K', color)
+            return new Knight(name, 'K', color, false)
         case Figures.rook:
-            return new Rook(name, 'R', color)
+            return new Rook(name, 'R', color, false)
         case Figures.queen:
-            return new Queen(name, 'Q', color)
+            return new Queen(name, 'Q', color, false)
         case Figures.king:
-            return new King(name, 'W', color)
+            return new King(name, 'W', color, true)
         default:
             throw new Error("Figure type is not allowed")
     }

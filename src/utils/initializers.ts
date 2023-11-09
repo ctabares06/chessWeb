@@ -15,7 +15,7 @@ export function boardGenerator(size: number): BoardWithList {
                 [code]: {
                     row: j,
                     col: i,
-                    piece: {}
+                    piece: undefined
                 }
             })
         }

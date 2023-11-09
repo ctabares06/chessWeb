@@ -37,6 +37,10 @@ export const setPiecePostion = (origin: string, destiny: string) => useBearStore
   copy[destiny].piece = piece
   copy[origin].piece = undefined
 
+  if (piece?.waitNotification) {
+    piece.notify()
+  }
+
   return {
     virtualBoard: { ...copy },
     moving: {
