@@ -1,3 +1,5 @@
+import { BasePieceInstance } from "../classes/types"
+
 export type Board = Array<Array<string>>
 
 export type BoardWithList = {
@@ -8,14 +10,14 @@ export type BoardWithList = {
 export type axisFigure = {
     col: number
     row: number
-    piece: Piece | Pawn | Record<string, never>
+    piece?: BasePieceInstance
 }
 
 export type virtualBoard = {
     [key: string]: axisFigure
 }
 
-export type movingPiece = Piece & {
+export type movingPiece = BasePieceInstance & {
     avMoves: Array<string>,
     position: string
 } | Record<string, never>
@@ -31,10 +33,6 @@ export interface Piece {
     name: Figures
     icon: string
     color: Sides
-}
-
-export interface Pawn extends Piece {
-    firstMove: boolean
 }
 
 export enum Sides {
@@ -62,7 +60,7 @@ export enum AvailablePositions {
 }
 
 export interface Player {
-    graveyard: Array<Piece>
+    graveyard: Array<BasePieceInstance>
     name: string
     check: boolean
 }

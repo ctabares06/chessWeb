@@ -1,25 +1,28 @@
 import React, { useState } from "react";
 import ConfigForm from "../Form";
-import { setPlayerInfo, startGame } from "../../store";
+import { setPlayerInfo, startGame, initVirualBoard } from "../../store";
 import { Sides } from "../../types";
+import { fillBoard } from "../../utils/initializers"
 
 const StepsPlayer: React.FC = () => {
   const [stepController, setStepController] = useState(0);
   const [defaultSide, setDefaultSide] = useState(Sides.white);
 
   const fillForm = (name: string, side: Sides) => {
-      setPlayerInfo(name, side)
-      if (side === Sides.white) {
-        setDefaultSide(Sides.black)
-      } else {
-        setDefaultSide(Sides.white)
-      }
-      if (stepController === steps.length-1) {
-        startGame()
-        return
-      }
-      setStepController(state => state+1)
-    };
+    setPlayerInfo(name, side)
+    if (side === Sides.white) {
+      setDefaultSide(Sides.black)
+    } else {
+      setDefaultSide(Sides.white)
+    }
+    if (stepController === steps.length - 1) {
+      initVirualBoard(fillBoard())
+      startGame()
+
+      return
+    }
+    setStepController(state => state + 1)
+  };
 
   const steps = [
     () => (

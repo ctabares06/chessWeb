@@ -2,7 +2,6 @@ import React, { FC, useEffect, useRef } from "react";
 import _ from "lodash";
 import useBearStore, { changeTurn, eatPiece, setMovingPiece, setPiecePostion, setCheck } from "../../store";
 import { Figures } from "../../types";
-import { isKingCheck } from "../../utils/moves";
 
 const Slot: FC<{ slot: string }> = ({ slot }) => {
   const pieceContainer = useRef<HTMLDivElement | null>(null);
@@ -10,8 +9,9 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
   const virtualBoard = useBearStore((state) => state.virtualBoard);
   const moving = useBearStore((state) => state.moving);
   const color = useBearStore((state) => state.game.turn);
-
+  
   const cell = virtualBoard[slot];
+  console.log(cell)
   const piece = cell.piece;
 
   const handleClickSlot = () => {
@@ -51,12 +51,12 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
     markIfAvMove()
   }, [moving])
 
-  useEffect(() => {
-    if (piece.name === Figures.king) {
-      isKingCheck(cell, board, virtualBoard, slot)
-        .then(isCheck => setCheck(piece.color, isCheck))
-    }
-  }, [virtualBoard])
+  // useEffect(() => {
+  //   if (piece?.name === Figures.king) {
+  //     isKingCheck(cell, board, virtualBoard, slot)
+  //       .then(isCheck => setCheck(piece.color, isCheck))
+  //   }
+  // }, [virtualBoard])
 
   return (
     <div
@@ -69,7 +69,6 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
         border: "2px solid darkred",
         width: "50px",
         height: "50px",
-        color: piece.color,
       }}
     >
       {

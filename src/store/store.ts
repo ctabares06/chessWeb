@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { BoardStore, Game, GameStatus, Sides } from '../types'
-import { boardGenerator, fillBoard } from '../utils/initializers';
+import { boardGenerator } from '../utils/initializers';
 
 const game: Game = {
     [Sides.white]: {
@@ -20,7 +20,6 @@ const game: Game = {
 
 const useBearStore = create<BoardStore>()(devtools((set) => {
     const { board, list } = boardGenerator(8)
-    // fillBoard(list)
 
     return {
         game: game,

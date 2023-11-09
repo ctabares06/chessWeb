@@ -8,14 +8,16 @@ export function boardGenerator(size: number): BoardWithList {
 
     for (let i = 0; i < size; i++) {
         rows[i] = []
-        for(let j = 0; j < size; j++) {
+        for (let j = 0; j < size; j++) {
             const code = `${i + 1}${String.fromCharCode(initialLetter + j)}`
             rows[i][j] = code
-            Object.assign(pieces, {[code]: {
-                row: j,
-                col: i,
-                piece: {}
-            }})
+            Object.assign(pieces, {
+                [code]: {
+                    row: j,
+                    col: i,
+                    piece: {}
+                }
+            })
         }
     }
 
@@ -25,117 +27,126 @@ export function boardGenerator(size: number): BoardWithList {
     }
 }
 
-export function fillBoard(virtual: virtualBoard): void {
-    initWhitePieces(virtual)
-    initBlackPieces(virtual)
+export function fillBoard(): Array<{ name: Figures, color: Sides, position: string }> {
+    return [...whitePieces(), ...blackPieces()]
 }
 
-const initWhitePieces = (virtual: virtualBoard) => {
-    virtual["1A"].piece = {
-        name: Figures.rook,
-        icon: "R",
-        color: Sides.white,
-    }
+const whitePieces = () => {
 
-    virtual["1B"].piece = {
-        name: Figures.knight,
-        icon: "K",
-        color: Sides.white,
-    }
+    const pieces = [
+        {
+            name: Figures.rook,
+            color: Sides.white,
+            position: '1A'
+        },
+        {
+            name: Figures.knight,
+            color: Sides.white,
+            position: '1B'
+        },
+        {
+            name: Figures.bishop,
+            color: Sides.white,
+            position: '1C'
+        },
+        {
+            name: Figures.queen,
+            color: Sides.white,
+            position: '1D'
+        },
+        {
+            name: Figures.king,
+            color: Sides.white,
+            position: '1E'
+        },
+        {
+            name: Figures.bishop,
+            color: Sides.white,
+            position: '1F'
+        },
+        {
+            name: Figures.knight,
+            color: Sides.white,
+            position: '1G'
+        },
+        {
+            name: Figures.rook,
+            color: Sides.white,
+            position: '1H'
+        }
+    ]
 
-    virtual["1C"].piece = {
-        name: Figures.bishop,
-        icon: "B",
-        color: Sides.white
-    }
-    virtual["1D"].piece = {
-        name: Figures.queen,
-        icon: "Q",
-        color: Sides.white
-    }
-    virtual["1E"].piece = {
-        name: Figures.king,
-        icon: "W",
-        color: Sides.white
-    }
-    virtual["1F"].piece = {
-        name: Figures.bishop,
-        icon: "B",
-        color: Sides.white
-    }
-    virtual["1G"].piece = {
-        name: Figures.knight,
-        icon: "K",
-        color: Sides.white
-    }
-    virtual["1H"].piece = {
-        name: Figures.rook,
-        icon: "R",
-        color: Sides.white
-    }
     for (let i = 0; i < 8; i++) {
         const pos = `2${String.fromCharCode(65 + i)}`;
 
-        virtual[pos].piece = {
-            name: Figures.pawn,
-            icon: "P",
-            color: Sides.white,
-            firstMove: true,
-        }
+        pieces.push(
+            {
+                name: Figures.pawn,
+                color: Sides.white,
+                position: pos,
+            }
+        )
     }
+
+    return pieces
 }
 
-const initBlackPieces = (virtual: virtualBoard) => {
-    virtual["8A"].piece = {
-        name: Figures.rook,
-        icon: "R",
-        color: Sides.black,
-    }
+const blackPieces = () => {
 
-    virtual["8B"].piece = {
-        name: Figures.knight,
-        icon: "K",
-        color: Sides.black,
-    }
+    const pieces = [
+        {
+            name: Figures.rook,
+            color: Sides.black,
+            position: '8A'
+        },
+        {
+            name: Figures.knight,
+            color: Sides.black,
+            position: '8B'
+        },
+        {
+            name: Figures.bishop,
+            color: Sides.black,
+            position: '8C'
+        },
+        {
+            name: Figures.queen,
+            color: Sides.black,
+            position: '8D'
+        },
+        {
+            name: Figures.king,
+            color: Sides.black,
+            position: '8E'
+        },
+        {
+            name: Figures.bishop,
+            color: Sides.black,
+            position: '8F'
+        },
+        {
+            name: Figures.knight,
+            color: Sides.black,
+            position: '8G'
+        },
+        {
+            name: Figures.rook,
+            color: Sides.black,
+            position: '8H'
+        }
+    ]
 
-    virtual["8C"].piece = {
-        name: Figures.bishop,
-        icon: "B",
-        color: Sides.black
-    }
-    virtual["8E"].piece = {
-        name: Figures.queen,
-        icon: "Q",
-        color: Sides.black
-    }
-    virtual["8D"].piece = {
-        name: Figures.king,
-        icon: "W",
-        color: Sides.black
-    }
-    virtual["8F"].piece = {
-        name: Figures.bishop,
-        icon: "B",
-        color: Sides.black
-    }
-    virtual["8G"].piece = {
-        name: Figures.knight,
-        icon: "K",
-        color: Sides.black
-    }
-    virtual["8H"].piece = {
-        name: Figures.rook,
-        icon: "R",
-        color: Sides.black
-    }
     for (let i = 0; i < 8; i++) {
         const pos = `7${String.fromCharCode(65 + i)}`;
 
-        virtual[pos].piece = {
-            name: Figures.pawn,
-            icon: "P",
-            color: Sides.black,
-            firstMove: true,
-        }
+        pieces.push(
+            {
+                name: Figures.pawn,
+                color: Sides.black,
+                position: pos,
+            }
+        )
     }
+
+    return pieces
 }
