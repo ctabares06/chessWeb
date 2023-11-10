@@ -1,6 +1,6 @@
 import { AvailablePositions, Board, virtualBoard } from "../types";
 import Movements from "./Movements";
-import { BasePiece } from "./Pieces";
+import { BasePiece } from "./BasePiece";
 
 export default class King extends BasePiece {
     notify(): void {
@@ -24,7 +24,7 @@ export default class King extends BasePiece {
         return list;
     }
 
-    blockedMove(row: number, col: number, board: Board, virtual: virtualBoard): boolean {
+    blockedPostion(row: number, col: number, board: Board, virtual: virtualBoard): boolean {
         const pos = board[col][row];
         const possiblePositions = this.getAccesiblePositions(row, col, board, virtual);
 
@@ -67,7 +67,7 @@ export default class King extends BasePiece {
                 continue;
             }
 
-            if (this.blockedMove(pointerRow, pointerCol, board, virtual)) {
+            if (this.blockedPostion(pointerRow, pointerCol, board, virtual)) {
                 continue;
             }
 

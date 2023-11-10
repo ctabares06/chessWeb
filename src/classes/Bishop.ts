@@ -1,6 +1,6 @@
 import { Board, virtualBoard } from "../types";
 import Movements from "./Movements";
-import { BasePiece } from "./Pieces";
+import { BasePiece } from "./BasePiece";
 
 export default class Bishop extends BasePiece {
     notify(): void {

@@ -34,6 +34,11 @@ export function fillBoard(): Array<{ name: Figures, color: Sides, position: stri
 const whitePieces = () => {
 
     const pieces = [
+        {
+            name: Figures.pawn,
+            color: Sides.white,
+            position: '2A'
+        },
         // {
         //     name: Figures.rook,
         //     color: Sides.white,
@@ -97,7 +102,7 @@ const blackPieces = () => {
         {
             name: Figures.rook,
             color: Sides.black,
-            position: '8E'
+            position: '8A'
         },
         // {
         //     name: Figures.knight,
