@@ -11,7 +11,7 @@ export default class Movements {
         this.row = row
     }
 
-    isValidPosition(piece: BasePieceInstance, color: Sides) {
+    isValidPosition(piece: BasePieceInstance | undefined, color: Sides) {
         if (_.isEmpty(piece)) {
             return AvailablePositions.valid
         } else if (color !== piece.color) {
@@ -302,6 +302,36 @@ export default class Movements {
             }
 
             break
+        }
+
+        return moves
+    }
+    lMovement(board: Board, virtual: virtualBoard, color: Sides): string[] {
+        const moves = []
+        const combinations = [
+            { y: 2, x: 1 }, { y: 2, x: -1 }, { y: -2, x: 1 }, { y: -2, x: -1 },
+            { y: 1, x: 2 }, { y: 1, x: -2 }, { y: -1, x: 2 }, { y: -1, x: -2 },
+        ]
+
+        for (let i = 0; i < combinations.length; i++) {
+            const currentCom = combinations[i]
+
+            if (!board[this.column + currentCom.y]) {
+                continue;
+            }
+
+            if (!board[this.column + currentCom.y][this.row + currentCom.x]) {
+                continue;
+            }
+
+            const pos = board[this.column + currentCom.y][this.row + currentCom.x]
+
+            const validPos = this.isValidPosition(virtual[pos].piece, color)
+
+            if (validPos === AvailablePositions.valid || validPos === AvailablePositions.last) {
+                moves.push(pos)
+            }
+
         }
 
         return moves

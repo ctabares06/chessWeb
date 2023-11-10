@@ -1,5 +1,5 @@
 import { BasePieceInstance } from "../classes/types"
-import { pieceDiscriminator } from "../classes/Pieces"
+import { pieceDiscriminator } from "../classes"
 import { Figures, GameStatus, Sides, axisFigure, movingPiece, virtualBoard } from "../types"
 import useBearStore from "./store"
 

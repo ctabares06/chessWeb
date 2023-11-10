@@ -11,7 +11,6 @@ const Slot: FC<{ slot: string }> = ({ slot }) => {
   const color = useBearStore((state) => state.game.turn);
   
   const cell = virtualBoard[slot];
-  console.log(cell)
   const piece = cell.piece;
 
   const handleClickSlot = () => {
