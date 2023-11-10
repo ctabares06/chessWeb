@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import Slot from './Slot'
+import SlotSelector from './SlotSelector'
 
 interface TileProps {
     row: Array<string>
@@ -9,7 +9,7 @@ const Tile: FC<TileProps> = ({ row }) => {
     return (
         <div style={{ display: "flex" }}>
             {
-                row.map((slot) => (<Slot key={slot} slot={slot} />))
+                row.map((slot) => (<SlotSelector key={slot} slot={slot} />))
             }
         </div>
     )

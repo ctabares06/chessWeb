@@ -7,6 +7,10 @@ export default class King extends BasePiece {
 
     }
 
+    isKingCheck(row: number, col: number, board: Board, virtual: virtualBoard) {
+        return this.blockedPostion(row, col, board, virtual);      
+    }
+
     getAccesiblePositions(row: number, col: number, board: Board, virtual: virtualBoard) {
         const movement = new Movements(col, row);
         const list = new Set([
