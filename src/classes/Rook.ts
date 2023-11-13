@@ -6,8 +6,8 @@ export default class Rook extends BasePiece {
     notify(): void {
 
     }
-    calcMove(row: number, col: number, board: Board, virtual: virtualBoard): string[] {
-        const movement = new Movements(col, row);
+    calcMove(row: number, col: number, board: Board, virtual: virtualBoard, ignorePieces: boolean = false): string[] {
+        const movement = new Movements(col, row, ignorePieces);
         const moves = [
             ...movement.moveStraightUp(board, virtual, this.color),
             ...movement.moveStraightRight(board, virtual, this.color),

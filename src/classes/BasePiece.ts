@@ -14,5 +14,5 @@ export abstract class BasePiece {
     }
 
     abstract notify(): void
-    abstract calcMove(row: number, col: number, board: Board, virtual: virtualBoard): string[]
+    abstract calcMove(row: number, col: number, board: Board, virtual: virtualBoard, ignorePieces: boolean): string[]
 }

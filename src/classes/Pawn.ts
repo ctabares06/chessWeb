@@ -10,8 +10,8 @@ export default class Pawn extends BasePiece {
         this.firstMove = true;
     }
 
-    calcMove(row: number, col: number, board: Board, virtual: virtualBoard): string[] {
-        const movement = new Movements(col, row);
+    calcMove(row: number, col: number, board: Board, virtual: virtualBoard, ignorePieces: boolean = false): string[] {
+        const movement = new Movements(col, row, ignorePieces);
         const moves = []
         let selectedColor;
 

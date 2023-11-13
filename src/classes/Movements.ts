@@ -5,14 +5,18 @@ import { BasePieceInstance } from "./types"
 export default class Movements {
     column: number
     row: number
+    ignorePieces: boolean
 
-    constructor(col: number, row: number) {
+    constructor(col: number, row: number, ignorePieces: boolean = false) {
         this.column = col
         this.row = row
+        this.ignorePieces = ignorePieces
     }
 
     isValidPosition(piece: BasePieceInstance | undefined, color: Sides) {
         if (_.isEmpty(piece)) {
+            return AvailablePositions.valid
+        } else if (this.ignorePieces) {
             return AvailablePositions.valid
         } else if (color !== piece.color) {
             return AvailablePositions.last
@@ -88,7 +92,6 @@ export default class Movements {
         const moves = []
         let done = false;
         let currentCol = this.column;
-
         while (!done) {
             currentCol -= 1
 
@@ -331,6 +334,7 @@ export default class Movements {
             if (validPos === AvailablePositions.valid || validPos === AvailablePositions.last) {
                 moves.push(pos)
             }
+
 
         }
 

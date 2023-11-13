@@ -6,8 +6,8 @@ export default class Queen extends BasePiece {
     notify(): void {
 
     }
-    calcMove(row: number, col: number, board: Board, virtual: virtualBoard): string[] {
-        const movement = new Movements(col, row);
+    calcMove(row: number, col: number, board: Board, virtual: virtualBoard, ignorePieces: boolean = false): string[] {
+        const movement = new Movements(col, row, ignorePieces);
         const moves = [
             ...movement.moveRightUp(board, virtual, this.color),
             ...movement.moveRightDown(board, virtual, this.color),

@@ -8,11 +8,11 @@ export default class King extends BasePiece {
     }
 
     isKingCheck(row: number, col: number, board: Board, virtual: virtualBoard) {
-        return this.blockedPostion(row, col, board, virtual);      
+        return this.blockedPostion(row, col, board, virtual);
     }
 
-    getAccesiblePositions(row: number, col: number, board: Board, virtual: virtualBoard) {
-        const movement = new Movements(col, row);
+    getAccesiblePositions(row: number, col: number, board: Board, virtual: virtualBoard, ignorePieces: boolean) {
+        const movement = new Movements(col, row, ignorePieces);
         const list = new Set([
             ...movement.moveStraightUp(board, virtual, this.color),
             ...movement.moveRightUp(board, virtual, this.color),
@@ -30,7 +30,7 @@ export default class King extends BasePiece {
 
     blockedPostion(row: number, col: number, board: Board, virtual: virtualBoard): boolean {
         const pos = board[col][row];
-        const possiblePositions = this.getAccesiblePositions(row, col, board, virtual);
+        const possiblePositions = this.getAccesiblePositions(row, col, board, virtual, true);
 
         for (let position of possiblePositions) {
             if (virtual[position].piece && virtual[position].piece?.color !== this.color) {
@@ -38,7 +38,7 @@ export default class King extends BasePiece {
                 const pointerRow = virtual[position].row;
                 const pointerPiece = virtual[position].piece;
 
-                const pieceMoves = pointerPiece?.calcMove(pointerRow, pointerCol, board, virtual);
+                const pieceMoves = pointerPiece?.calcMove(pointerRow, pointerCol, board, virtual, true);
                 for (let slot of pieceMoves!) {
                     if (slot === pos) {
                         return true;
@@ -59,9 +59,9 @@ export default class King extends BasePiece {
         ]
 
         for (let i = 0; i < combinations.length; i++) {
-            const currentCom = combinations[i]
-            const pointerRow = row + currentCom.x
-            const pointerCol = col + currentCom.y
+            const currentCombination = combinations[i]
+            const pointerRow = row + currentCombination.x
+            const pointerCol = col + currentCombination.y
 
             if (!board[pointerCol]) {
                 continue;
