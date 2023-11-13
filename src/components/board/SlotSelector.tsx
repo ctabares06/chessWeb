@@ -1,14 +1,15 @@
-import React from 'react';
-import useBearStore, { changeTurn, eatPiece, setMovingPiece, setPiecePostion } from '../../store';
+import React, { useEffect } from 'react';
+import useBearStore, { changeTurn, eatPiece, setCheck, setMovingPiece, setPiecePostion } from '../../store';
 import Slot from './Slot';
 import EmptySlot from './EmptySlot';
 import _ from 'lodash';
+import { Figures } from '../../types';
 
 
 const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
-    const cell = useBearStore(state => state.virtualBoard[slot]);
-    const turn = useBearStore(state => state.game.turn);
-    const moving = useBearStore(state => state.moving);
+    const { game, board, moving, virtualBoard: virtual } = useBearStore(state => state);
+    const turn = game.turn;
+    const cell = virtual[slot];
     const piece = cell.piece!;
 
     const handlerSlotClick = () => {
@@ -17,12 +18,15 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
         }
 
         if (!_.isEmpty(piece)) {
+            const isCheck = game[piece.color].check;
             if (turn !== piece.color && moving.avMoves.includes(slot)) {
                 eatPiece(slot, piece, turn)
                 return changeTurn()
             }
 
-            if (turn === piece.color) {
+            if (turn === piece.color && !isCheck) {
+                return setMovingPiece(cell, slot);
+            } else if (turn === piece.color && piece.name === Figures.king) {
                 return setMovingPiece(cell, slot);
             }
         }
@@ -38,6 +42,12 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
             return changeTurn()
         }
     }
+
+    useEffect(() => {
+        if (piece && piece.name === Figures.king) {
+            setCheck(piece.color, piece.isKingCheck(cell.row, cell.col, board, virtual));
+        }
+    }, [virtual])
 
     return (
         <>
