@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import useBearStore, { changeTurn, eatPiece, setCheck, setMovingPiece, setPiecePostion } from '../../store';
 import Slot from './Slot';
 import EmptySlot from './EmptySlot';
@@ -13,40 +13,6 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
     const turn = game.turn;
     const cell = virtual[slot];
     const piece = cell.piece!;
-
-    const pieceSelector = () => {
-        if (!piece) {
-            return <EmptySlot
-                slot={slot}
-                moving={moving}
-                handleClick={handleEmptySlotClick}
-                key={slot}
-            />
-        } else if (piece.name === Figures.king) {
-            return <SlotKing
-                piece={piece}
-                slot={slot}
-                moving={moving}
-                state={{
-                    board,
-                    virtual,
-                    col: cell.col,
-                    row: cell.row
-                }}
-                handleClick={handlerSlotClick}
-                key={slot}
-            />
-        } else {
-            return <Slot
-                piece={piece}
-                slot={slot}
-                moving={moving}
-                handleClick={handlerSlotClick}
-                key={slot}
-            />
-        }
-    }
-
 
     const handlerSlotClick = () => {
         if (_.isEmpty(moving)) {
@@ -78,6 +44,39 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
             return changeTurn()
         }
     }
+
+    const pieceSelector = useCallback(() => {
+        if (!piece) {
+            return <EmptySlot
+                slot={slot}
+                moving={moving}
+                handleClick={handleEmptySlotClick}
+                key={slot}
+            />
+        } else if (piece.name === Figures.king) {
+            return <SlotKing
+                piece={piece}
+                slot={slot}
+                moving={moving}
+                state={{
+                    board,
+                    virtual,
+                    col: cell.col,
+                    row: cell.row
+                }}
+                handleClick={handlerSlotClick}
+                key={slot}
+            />
+        } else {
+            return <Slot
+                piece={piece}
+                slot={slot}
+                moving={moving}
+                handleClick={handlerSlotClick}
+                key={slot}
+            />
+        }
+    }, [piece, moving, cell])
 
     return (
         <>
