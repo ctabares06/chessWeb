@@ -50,7 +50,9 @@ export enum Figures {
 }
 
 export enum GameStatus {
-    waiting, started, ended
+    waiting = "waiting", 
+    started = "started", 
+    ended = "ended"
 }
 
 export enum AvailablePositions {

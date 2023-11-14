@@ -34,7 +34,7 @@ const SlotKing: FC<SlotType> = ({ piece, slot, moving, state, handleClick }) => 
     if (piece && piece.name === Figures.king) {
         setCheck(piece.color, piece.isKingCheck(state.row, state.col, state.board, state.virtual));
     }
-}, [state.row, state.col])
+}, [state.virtual])
 
   useEffect(() => {
     markIfAvMove()

@@ -1,10 +1,11 @@
-import React, { useEffect, useCallback } from 'react';
-import useBearStore, { changeTurn, eatPiece, setCheck, setMovingPiece, setPiecePostion } from '../../store';
+import React, { useCallback } from 'react';
+import useBearStore, { changeTurn, eatPiece, setMovingPiece, setPiecePostion } from '../../store';
 import Slot from './Slot';
 import EmptySlot from './EmptySlot';
 import _ from 'lodash';
 import { Figures } from '../../types';
 import SlotKing from './SlotKing';
+import King from '../../classes/King';
 
 
 
@@ -22,6 +23,9 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
         if (!_.isEmpty(piece)) {
             const isCheck = game[piece.color].check;
             if (turn !== piece.color && moving.avMoves.includes(slot)) {
+                if (virtual[slot].piece?.name === Figures.king) {
+                    return;
+                }
                 eatPiece(slot, piece, turn)
                 return changeTurn()
             }
@@ -53,7 +57,7 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
                 handleClick={handleEmptySlotClick}
                 key={slot}
             />
-        } else if (piece.name === Figures.king) {
+        } else if (piece instanceof King) {
             return <SlotKing
                 piece={piece}
                 slot={slot}
@@ -76,7 +80,7 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
                 key={slot}
             />
         }
-    }, [piece, moving, cell])
+    }, [piece, moving, cell, game])
 
     return (
         <>
