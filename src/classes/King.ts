@@ -3,8 +3,8 @@ import Movements from "./Movements";
 import { BasePiece } from "./BasePiece";
 
 export default class King extends BasePiece {
-    notify(): void {
-
+    notify() {
+        
     }
 
     isKingCheck(row: number, col: number, board: Board, virtual: virtualBoard) {

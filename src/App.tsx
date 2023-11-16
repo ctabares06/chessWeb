@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import "./App.css";
 import Board from "./components/board/Board";
 import StepsPlayer from "./components/StepsPlayer/StepsPlayer";
@@ -5,17 +6,26 @@ import useBearStore from "./store";
 import { GameStatus } from "./types";
 
 function App() {
-  const gameStatus = useBearStore((state) => state.game.status);
+  const { status: gameStatus } = useBearStore((state) => state.game);
+  const { winner } = useBearStore(state => state.resume);
 
-  return (
-    <>
-      {gameStatus === GameStatus.waiting ? (
-        <StepsPlayer/>
-      ) : (
-        <Board />
-      )}
-    </>
-  );
+  const gamePhase = useCallback(() => {
+    switch (gameStatus) {
+      case GameStatus.waiting:
+        return <StepsPlayer />
+      case GameStatus.started:
+        return <Board />
+      case GameStatus.ended:
+        return <>
+          winner: {winner}
+        </>
+
+      default:
+        throw new Error("invalid status")
+    }
+  }, [gameStatus])
+
+  return gamePhase();
 }
 
 export default App;

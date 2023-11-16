@@ -28,6 +28,9 @@ const useBearStore = create<BoardStore>()(devtools((set) => {
         moving: {
             avMoves: [],
         },
+        resume: {
+            winner: null,
+        }
     }
 }, { name: "chess" }))
 

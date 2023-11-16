@@ -1,8 +1,8 @@
 import { FC, useEffect, useRef } from "react";
 import _ from "lodash";
-import { Board, Figures, movingPiece, virtualBoard } from "../../types";
+import { Board, Figures, Sides, movingPiece, virtualBoard } from "../../types";
 import { KingInstance } from "../../classes/types";
-import { setCheck } from "../../store";
+import { setCheck, setCheckMate } from "../../store";
 
 type SlotType = {
   piece: KingInstance
@@ -31,10 +31,17 @@ const SlotKing: FC<SlotType> = ({ piece, slot, moving, state, handleClick }) => 
   }
 
   useEffect(() => {
-    if (piece && piece.name === Figures.king) {
-        setCheck(piece.color, piece.isKingCheck(state.row, state.col, state.board, state.virtual));
+    debugger;
+    const isCheck = piece.isKingCheck(state.row, state.col, state.board, state.virtual);
+    const avMoves = piece.calcMove(state.row, state.col, state.board, state.virtual);
+    if (isCheck && avMoves.length === 0) {
+      const winner = piece.color === Sides.white ? Sides.black : Sides.white;
+      setCheckMate(winner);
+    } else {
+      setCheck(piece.color, isCheck);
     }
-}, [state.virtual])
+
+  }, [state.virtual])
 
   useEffect(() => {
     markIfAvMove()

@@ -27,6 +27,9 @@ export interface BoardStore {
     board: Board
     virtualBoard: virtualBoard
     moving: movingPiece
+    resume: {
+        winner: Sides | null
+    }
 }
 
 export interface Piece {

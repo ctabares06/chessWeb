@@ -134,3 +134,15 @@ export const setCheck = (side: Sides, check: boolean) => useBearStore.setState((
     }
   }
 })
+
+export const setCheckMate = (side: Sides) => useBearStore.setState(state => {
+  return {
+    game: {
+      ...state.game,
+      status: GameStatus.ended
+    },
+    resume: {
+      winner: side
+    }
+  }
+})

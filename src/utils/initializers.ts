@@ -62,7 +62,7 @@ const whitePieces = () => {
         {
             name: Figures.king,
             color: Sides.white,
-            position: '1E'
+            position: '7H'
         },
         // {
         //     name: Figures.bishop,
@@ -117,7 +117,7 @@ const blackPieces = () => {
         {
             name: Figures.queen,
             color: Sides.black,
-            position: '8D'
+            position: '1G'
         },
         // {
         //     name: Figures.king,
