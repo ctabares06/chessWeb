@@ -1,5 +1,5 @@
-import useBearStore from "./store"
+import useBearStore from './store';
 
-export * from './actions'
+export * from './actions';
 
-export default useBearStore
+export default useBearStore;

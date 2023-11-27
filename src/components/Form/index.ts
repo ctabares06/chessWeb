@@ -1,3 +1,3 @@
-import ConfigForm from './Form'
+import ConfigForm from './Form';
 
 export default ConfigForm;
