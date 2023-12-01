@@ -8,7 +8,7 @@ interface SlotType {
 	moving: MovingPiece | null;
 	slot: string;
 	handleClick: () => void;
-};
+}
 
 const Slot: FC<SlotType> = ({ piece, slot, moving, handleClick }) => {
 	const pieceContainer = useRef<HTMLDivElement | null>(null);

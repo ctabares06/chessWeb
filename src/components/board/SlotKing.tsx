@@ -15,7 +15,7 @@ interface SlotType {
 		row: number;
 	};
 	handleClick: () => void;
-};
+}
 
 const SlotKing: FC<SlotType> = ({
 	piece,

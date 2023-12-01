@@ -6,7 +6,7 @@ interface EmptySlotType {
 	slot: string;
 	moving: MovingPiece | null;
 	handleClick: () => void;
-};
+}
 
 const EmptySlot: FC<EmptySlotType> = ({ slot, moving, handleClick }) => {
 	const pieceContainer = useRef<HTMLDivElement | null>(null);
