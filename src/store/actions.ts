@@ -4,26 +4,29 @@ import {
 	Figures,
 	GameStatus,
 	Sides,
-	axisFigure,
-	movingPiece,
-	virtualBoard,
+	AxisFigure,
+	MovingPiece,
+	VirtualBoard,
 } from '../types';
 import useBearStore from './store';
+import Pawn from '../classes/Pawn';
 
-export const setMovingPiece = (cell: axisFigure, position: string) =>
+export const setMovingPiece = (cell: AxisFigure, position: string) =>
 	useBearStore.setState((state) => {
 		const { piece } = cell;
 		const avPos = piece?.calcMove(
 			cell.row,
 			cell.col,
 			state.board,
-			state.virtualBoard
+			state.virtualBoard,
+			false
 		);
-		const moving: movingPiece = Object({
+		const moving: MovingPiece = Object({
 			...piece,
 			avMoves: avPos,
 			position,
 		});
+		moving.calcMove = piece.calcMove;
 
 		return {
 			moving: { ...moving },
@@ -31,7 +34,7 @@ export const setMovingPiece = (cell: axisFigure, position: string) =>
 	});
 
 export const initVirualBoard = (
-	list: Array<{ name: Figures; color: Sides; position: string }>
+	list: { name: Figures; color: Sides; position: string }[]
 ) =>
 	useBearStore.setState((state) => {
 		const copy = Object(state.virtualBoard);
@@ -51,21 +54,19 @@ export const initVirualBoard = (
 
 export const setPiecePostion = (origin: string, destiny: string) =>
 	useBearStore.setState((state) => {
-		const copy: virtualBoard = Object(state.virtualBoard);
+		const copy: VirtualBoard = Object(state.virtualBoard);
 		const piece = copy[origin].piece;
 
 		copy[destiny].piece = piece;
 		copy[origin].piece = undefined;
 
-		if (piece?.waitNotification) {
+		if (piece instanceof Pawn) {
 			piece.notify();
 		}
 
 		return {
 			virtualBoard: { ...copy },
-			moving: {
-				avMoves: [],
-			},
+			moving: null,
 		};
 	});
 
@@ -130,9 +131,9 @@ export const eatPiece = (
 	useBearStore.setState((state) => {
 		const virtual = state.virtualBoard;
 		const game = state.game;
-		const newFigure = virtual[state.moving.position].piece;
+		const newFigure = virtual[state.moving!.position].piece;
 		virtual[slot].piece = newFigure;
-		virtual[state.moving.position].piece = undefined;
+		virtual[state.moving!.position].piece = undefined;
 
 		if (color === Sides.white) {
 			game[Sides.black].graveyard.push(piece);
@@ -143,9 +144,7 @@ export const eatPiece = (
 		return {
 			game: { ...game },
 			virtualBoard: { ...virtual },
-			moving: {
-				avMoves: [],
-			},
+			moving: null,
 		};
 	});
 

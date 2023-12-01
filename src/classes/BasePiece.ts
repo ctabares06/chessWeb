@@ -1,29 +1,21 @@
-import { Board, Figures, Sides, virtualBoard } from '../types';
+import { Board, Figures, Sides, VirtualBoard } from '../types';
 
 export abstract class BasePiece {
 	name: Figures;
 	icon: string;
 	color: Sides;
-	waitNotification: boolean;
 
-	constructor(
-		name: Figures,
-		icon: string,
-		color: Sides,
-		waitNotification: boolean
-	) {
+	constructor(name: Figures, icon: string, color: Sides) {
 		this.name = name;
 		this.icon = icon;
 		this.color = color;
-		this.waitNotification = waitNotification;
 	}
 
-	abstract notify(): void;
 	abstract calcMove(
 		row: number,
 		col: number,
 		board: Board,
-		virtual: virtualBoard,
+		virtual: VirtualBoard,
 		ignorePieces: boolean
 	): string[];
 }

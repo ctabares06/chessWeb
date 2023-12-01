@@ -1,11 +1,11 @@
 import { FC, useEffect, useRef } from 'react';
 import _ from 'lodash';
-import { movingPiece } from '../../types';
+import { MovingPiece } from '../../types';
 import { BasePieceInstance } from '../../classes/types';
 
-type SlotType = {
+interface SlotType {
 	piece: BasePieceInstance;
-	moving: movingPiece;
+	moving: MovingPiece | null;
 	slot: string;
 	handleClick: () => void;
 };
@@ -15,7 +15,7 @@ const Slot: FC<SlotType> = ({ piece, slot, moving, handleClick }) => {
 
 	const markIfAvMove = () => {
 		if (pieceContainer.current) {
-			if (moving.avMoves.includes(slot)) {
+			if (moving && moving.avMoves.includes(slot)) {
 				pieceContainer.current.style.backgroundColor = 'red';
 			} else {
 				pieceContainer.current.style.backgroundColor = 'transparent';

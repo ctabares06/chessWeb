@@ -1,11 +1,9 @@
-import { AvailablePositions, Board, virtualBoard } from '../types';
+import { AvailablePositions, Board, VirtualBoard } from '../types';
 import Movements from './Movements';
 import { BasePiece } from './BasePiece';
 
 export default class King extends BasePiece {
-	notify() {}
-
-	isKingCheck(row: number, col: number, board: Board, virtual: virtualBoard) {
+	isKingCheck(row: number, col: number, board: Board, virtual: VirtualBoard) {
 		return this.blockedPostion(row, col, board, virtual);
 	}
 
@@ -13,7 +11,7 @@ export default class King extends BasePiece {
 		row: number,
 		col: number,
 		board: Board,
-		virtual: virtualBoard,
+		virtual: VirtualBoard,
 		ignorePieces: boolean
 	) {
 		const movement = new Movements(col, row, ignorePieces);
@@ -36,7 +34,7 @@ export default class King extends BasePiece {
 		row: number,
 		col: number,
 		board: Board,
-		virtual: virtualBoard
+		virtual: VirtualBoard
 	): boolean {
 		const pos = board[col][row];
 		const possiblePositions = this.getAccesiblePositions(
@@ -47,7 +45,7 @@ export default class King extends BasePiece {
 			true
 		);
 
-		for (let position of possiblePositions) {
+		for (const position of possiblePositions) {
 			if (
 				virtual[position].piece &&
 				virtual[position].piece?.color !== this.color
@@ -63,7 +61,7 @@ export default class King extends BasePiece {
 					virtual,
 					true
 				);
-				for (let slot of pieceMoves!) {
+				for (const slot of pieceMoves) {
 					if (slot === pos) {
 						return true;
 					}
@@ -78,7 +76,7 @@ export default class King extends BasePiece {
 		row: number,
 		col: number,
 		board: Board,
-		virtual: virtualBoard
+		virtual: VirtualBoard
 	): string[] {
 		const movement = new Movements(col, row);
 		const moves = [];

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { AvailablePositions, Board, Sides, virtualBoard } from '../types';
+import { AvailablePositions, Board, Sides, VirtualBoard } from '../types';
 import { BasePieceInstance } from './types';
 
 export default class Movements {
@@ -7,7 +7,7 @@ export default class Movements {
 	row: number;
 	ignorePieces: boolean;
 
-	constructor(col: number, row: number, ignorePieces: boolean = false) {
+	constructor(col: number, row: number, ignorePieces = false) {
 		this.column = col;
 		this.row = row;
 		this.ignorePieces = ignorePieces;
@@ -27,7 +27,7 @@ export default class Movements {
 
 	moveStraightUp(
 		board: Board,
-		virtual: virtualBoard,
+		virtual: VirtualBoard,
 		color: Sides
 	): string[] {
 		const moves = [];
@@ -62,7 +62,7 @@ export default class Movements {
 
 	moveStraightRight(
 		board: Board,
-		virtual: virtualBoard,
+		virtual: VirtualBoard,
 		color: Sides
 	): string[] {
 		const moves = [];
@@ -98,7 +98,7 @@ export default class Movements {
 
 	moveStraightDown(
 		board: Board,
-		virtual: virtualBoard,
+		virtual: VirtualBoard,
 		color: Sides
 	): string[] {
 		const moves = [];
@@ -132,7 +132,7 @@ export default class Movements {
 
 	moveStraightLeft(
 		board: Board,
-		virtual: virtualBoard,
+		virtual: VirtualBoard,
 		color: Sides
 	): string[] {
 		const moves = [];
@@ -166,7 +166,7 @@ export default class Movements {
 		return moves;
 	}
 
-	moveRightUp(board: Board, virtual: virtualBoard, color: Sides): string[] {
+	moveRightUp(board: Board, virtual: VirtualBoard, color: Sides): string[] {
 		const moves = [];
 		let done = false;
 		let currentRow = this.row;
@@ -205,7 +205,7 @@ export default class Movements {
 		return moves;
 	}
 
-	moveRightDown(board: Board, virtual: virtualBoard, color: Sides): string[] {
+	moveRightDown(board: Board, virtual: VirtualBoard, color: Sides): string[] {
 		const moves = [];
 		let done = false;
 		let currentRow = this.row;
@@ -244,7 +244,7 @@ export default class Movements {
 		return moves;
 	}
 
-	moveLeftDown(board: Board, virtual: virtualBoard, color: Sides): string[] {
+	moveLeftDown(board: Board, virtual: VirtualBoard, color: Sides): string[] {
 		const moves = [];
 		let done = false;
 		let currentRow = this.row;
@@ -283,7 +283,7 @@ export default class Movements {
 		return moves;
 	}
 
-	moveLeftUp(board: Board, virtual: virtualBoard, color: Sides): string[] {
+	moveLeftUp(board: Board, virtual: VirtualBoard, color: Sides): string[] {
 		const moves = [];
 		let done = false;
 		let currentRow = this.row;
@@ -321,7 +321,7 @@ export default class Movements {
 
 		return moves;
 	}
-	lMovement(board: Board, virtual: virtualBoard, color: Sides): string[] {
+	lMovement(board: Board, virtual: VirtualBoard, color: Sides): string[] {
 		const moves = [];
 		const combinations = [
 			{ y: 2, x: 1 },

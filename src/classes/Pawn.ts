@@ -3,7 +3,7 @@ import {
 	Board,
 	Figures,
 	Sides,
-	virtualBoard,
+	VirtualBoard,
 } from '../types';
 import Movements from './Movements';
 import { BasePiece } from './BasePiece';
@@ -11,13 +11,8 @@ import { BasePiece } from './BasePiece';
 export default class Pawn extends BasePiece {
 	firstMove: boolean;
 
-	constructor(
-		name: Figures,
-		icon: string,
-		color: Sides,
-		waitNotification: boolean
-	) {
-		super(name, icon, color, waitNotification);
+	constructor(name: Figures, icon: string, color: Sides) {
+		super(name, icon, color);
 		this.firstMove = true;
 	}
 
@@ -25,8 +20,8 @@ export default class Pawn extends BasePiece {
 		row: number,
 		col: number,
 		board: Board,
-		virtual: virtualBoard,
-		ignorePieces: boolean = false
+		virtual: VirtualBoard,
+		ignorePieces = false
 	): string[] {
 		const movement = new Movements(col, row, ignorePieces);
 		const moves = [];

@@ -1,16 +1,16 @@
 import { FC, useEffect, useRef } from 'react';
 import _ from 'lodash';
-import { Board, Figures, Sides, movingPiece, virtualBoard } from '../../types';
+import { Board, Figures, Sides, MovingPiece, VirtualBoard } from '../../types';
 import { KingInstance } from '../../classes/types';
 import { setCheck, setCheckMate } from '../../store';
 
-type SlotType = {
+interface SlotType {
 	piece: KingInstance;
-	moving: movingPiece;
+	moving: MovingPiece | null;
 	slot: string;
 	state: {
 		board: Board;
-		virtual: virtualBoard;
+		virtual: VirtualBoard;
 		col: number;
 		row: number;
 	};
@@ -28,7 +28,7 @@ const SlotKing: FC<SlotType> = ({
 
 	const markIfAvMove = () => {
 		if (pieceContainer.current) {
-			if (moving.avMoves.includes(slot)) {
+			if (moving && moving.avMoves.includes(slot)) {
 				pieceContainer.current.style.backgroundColor = 'red';
 			} else {
 				pieceContainer.current.style.backgroundColor = 'transparent';
@@ -37,7 +37,6 @@ const SlotKing: FC<SlotType> = ({
 	};
 
 	useEffect(() => {
-		debugger;
 		const isCheck = piece.isKingCheck(
 			state.row,
 			state.col,

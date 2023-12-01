@@ -1,15 +1,14 @@
-import { Board, virtualBoard } from '../types';
+import { Board, VirtualBoard } from '../types';
 import Movements from './Movements';
 import { BasePiece } from './BasePiece';
 
 export default class Rook extends BasePiece {
-	notify(): void {}
 	calcMove(
 		row: number,
 		col: number,
 		board: Board,
-		virtual: virtualBoard,
-		ignorePieces: boolean = false
+		virtual: VirtualBoard,
+		ignorePieces = false
 	): string[] {
 		const movement = new Movements(col, row, ignorePieces);
 		const moves = [

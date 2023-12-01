@@ -21,15 +21,17 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
 	} = useBearStore((state) => state);
 	const turn = game.turn;
 	const cell = virtual[slot];
-	const piece = cell.piece!;
+	const piece = cell.piece;
 
 	const handlerSlotClick = () => {
-		if (_.isEmpty(moving)) {
-			return;
-		}
-
-		if (!_.isEmpty(piece)) {
+		if (!moving && piece) {
 			const isCheck = game[piece.color].check;
+			if (turn === piece.color && !isCheck) {
+				return setMovingPiece(cell, slot);
+			} else if (turn === piece.color && piece.name === Figures.king) {
+				return setMovingPiece(cell, slot);
+			}
+		} else if (moving && piece) {
 			if (turn !== piece.color && moving.avMoves.includes(slot)) {
 				if (virtual[slot].piece?.name === Figures.king) {
 					return;
@@ -37,17 +39,13 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
 				eatPiece(slot, piece, turn);
 				return changeTurn();
 			}
-
-			if (turn === piece.color && !isCheck) {
-				return setMovingPiece(cell, slot);
-			} else if (turn === piece.color && piece.name === Figures.king) {
-				return setMovingPiece(cell, slot);
-			}
+		} else {
+			return;
 		}
 	};
 
 	const handleEmptySlotClick = () => {
-		if (_.isEmpty(moving)) {
+		if (!moving) {
 			return;
 		}
 

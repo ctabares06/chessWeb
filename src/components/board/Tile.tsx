@@ -2,7 +2,7 @@ import { FC } from 'react';
 import SlotSelector from './SlotSelector';
 
 interface TileProps {
-	row: Array<string>;
+	row: string[];
 }
 
 const Tile: FC<TileProps> = ({ row }) => {

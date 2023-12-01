@@ -1,10 +1,10 @@
-import { Board, BoardWithList, Figures, Sides, virtualBoard } from '../types';
+import { Board, BoardWithList, Figures, Sides, VirtualBoard } from '../types';
 
 export function boardGenerator(size: number): BoardWithList {
 	const initialLetter = 65;
 
 	const rows: Board = [];
-	const pieces: virtualBoard = {};
+	const pieces: VirtualBoard = {};
 
 	for (let i = 0; i < size; i++) {
 		rows[i] = [];
@@ -27,11 +27,11 @@ export function boardGenerator(size: number): BoardWithList {
 	};
 }
 
-export function fillBoard(): Array<{
+export function fillBoard(): {
 	name: Figures;
 	color: Sides;
 	position: string;
-}> {
+}[] {
 	return [...whitePieces(), ...blackPieces()];
 }
 

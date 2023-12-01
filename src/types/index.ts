@@ -1,34 +1,33 @@
+import Pawn from '../classes/Pawn';
 import { BasePieceInstance } from '../classes/types';
 
-export type Board = Array<Array<string>>;
+export type Board = string[][];
 
-export type BoardWithList = {
+export interface BoardWithList {
 	board: Board;
-	list: virtualBoard;
-};
+	list: VirtualBoard;
+}
 
-export type axisFigure = {
+export interface AxisFigure {
 	col: number;
 	row: number;
-	piece?: BasePieceInstance;
-};
+	piece?: BasePieceInstance | Pawn;
+}
 
-export type virtualBoard = {
-	[key: string]: axisFigure;
-};
+export interface VirtualBoard {
+	[key: string]: AxisFigure;
+}
 
-export type movingPiece =
-	| (BasePieceInstance & {
-			avMoves: Array<string>;
-			position: string;
-	  })
-	| Record<string, never>;
+export interface MovingPiece extends BasePieceInstance {
+	avMoves: string[];
+	position: string;
+}
 
 export interface BoardStore {
 	game: Game;
 	board: Board;
-	virtualBoard: virtualBoard;
-	moving: movingPiece;
+	virtualBoard: VirtualBoard;
+	moving: MovingPiece | null;
 	resume: {
 		winner: Sides | null;
 	};
@@ -67,14 +66,14 @@ export enum AvailablePositions {
 }
 
 export interface Player {
-	graveyard: Array<BasePieceInstance>;
+	graveyard: BasePieceInstance[];
 	name: string;
 	check: boolean;
 }
 
-export type Game = {
+export interface Game {
 	status: GameStatus;
 	[Sides.white]: Player;
 	[Sides.black]: Player;
 	turn: Sides;
-};
+}

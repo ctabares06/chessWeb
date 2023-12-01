@@ -20,16 +20,14 @@ const game: Game = {
 
 const useBearStore = create<BoardStore>()(
 	devtools(
-		(set) => {
+		() => {
 			const { board, list } = boardGenerator(8);
 
 			return {
 				game: game,
 				board: board,
 				virtualBoard: list,
-				moving: {
-					avMoves: [],
-				},
+				moving: null,
 				resume: {
 					winner: null,
 				},

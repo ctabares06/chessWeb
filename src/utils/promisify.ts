@@ -1,4 +1,4 @@
-export const toAsync = (cb: Function) =>
+export const toAsync = (cb: () => void) =>
 	new Promise((resolve, reject) => {
 		try {
 			resolve(cb());
