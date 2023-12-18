@@ -48,22 +48,25 @@ export default class King extends BasePiece {
 		for (const position of possiblePositions) {
 			if (
 				virtual[position].piece &&
-				virtual[position].piece?.color !== this.color
+				virtual[position].piece?.color !== this.color &&
+				!(virtual[position].piece instanceof King)
 			) {
 				const pointerCol = virtual[position].col;
 				const pointerRow = virtual[position].row;
 				const pointerPiece = virtual[position].piece;
 
-				const pieceMoves = pointerPiece?.calcMove(
-					pointerRow,
-					pointerCol,
-					board,
-					virtual,
-					true
-				);
-				for (const slot of pieceMoves) {
-					if (slot === pos) {
-						return true;
+				if (pointerPiece) {
+					const pieceMoves = pointerPiece?.calcMove(
+						pointerRow,
+						pointerCol,
+						board,
+						virtual,
+						true
+					);
+					for (const slot of pieceMoves) {
+						if (slot === pos) {
+							return true;
+						}
 					}
 				}
 			}

@@ -1,26 +1,26 @@
-import { create } from 'zustand';
+import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { BoardStore, Game, GameStatus, Sides } from '../types';
 import { boardGenerator } from '../utils/initializers';
 
-const game: Game = {
-	[Sides.white]: {
-		name: '',
-		check: false,
-		graveyard: [],
-	},
-	[Sides.black]: {
-		name: '',
-		check: false,
-		graveyard: [],
-	},
-	status: GameStatus.waiting,
-	turn: Sides.white,
-};
-
 const useBearStore = create<BoardStore>()(
 	devtools(
 		() => {
+			const game: Game = {
+				[Sides.white]: {
+					name: '',
+					check: false,
+					graveyard: [],
+				},
+				[Sides.black]: {
+					name: '',
+					check: false,
+					graveyard: [],
+				},
+				status: GameStatus.waiting,
+				turn: Sides.white,
+			};
+
 			const { board, list } = boardGenerator(8);
 
 			return {

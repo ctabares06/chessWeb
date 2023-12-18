@@ -10,13 +10,14 @@
 		"lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"prettier.fix": "prettier ./src --write",
 		"preview": "vite preview",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"precommit": "pnpm lint && pnpm prettier.fix"
 	},
 	"dependencies": {
 		"lodash": "^4.17.21",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"zustand": "^4.3.8"
+		"zustand": "^4.4.7"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.22.5",
