@@ -1,0 +1,42 @@
+@import '../colors'
+@import '../neon'
+@import '../variables'
+
+.button
+    padding: .75em .25em
+    color: biege
+    border-radius: square-radius
+    cursor: pointer
+    border-width: 2px
+    border-style: solid
+    transition: all .15s ease-in-out
+
+    &.button--pink
+        border-color: lightPink
+        neon pink 6px 3px
+        &:hover
+            background-color: pinkComplementary
+
+    &.button--navy
+        border-color: lightNavy
+        neon navy 6px 3px
+        &:hover
+            background-color: navyComplementary
+
+    &.button--yellow
+        border-color: lightYellow
+        neon yellow 6px 3px
+        &:hover
+            background-color: yellowComplementary
+
+
+    &__text
+        &.button__text--pink
+            text-neon pink 6px 4px
+
+        &.button__text--navy
+            text-neon navy 6px 4px
+
+        &.button__text--yellow
+            text-neon yellow 6px 4px
+

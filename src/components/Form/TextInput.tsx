@@ -1,9 +1,9 @@
 import Input from './Input';
-import styles from '../../styles/form/text.module.styl'
+import '../../styles/form/text.styl'
 
 const TextInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = ({ ...params }) => {
     return (
-        <Input {...params} className={styles.main} type="text" />
+        <Input {...params} className="input-text yellow" type="text" />
     )
 }
 

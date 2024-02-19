@@ -1,0 +1,39 @@
+@import '../colors'
+@import '../neon'
+@import '../variables'
+
+textneon(mainColor, lightColor, darkColor, complementary)
+    border-color: mainColor
+    neon darkColor 10px 2px
+    text-neon mainColor
+    &:focus
+        background-color: complementary
+        border-color: lightColor 
+    &::placeholder
+        text-neon mainColor
+
+.input-text
+    width: 100%
+    background-color: darkPurple
+    color: beige
+    border-radius: 5px
+    border-width: 2px
+    border-style: solid
+    border-color: darkPurple
+    padding: .5em .3em .5em .3em
+    transition: all 0.15s ease-in-out
+    &:focus
+        outline: none
+    &::placeholder
+        opacity: 1
+    
+    &.pink
+        textneon(pink, lightPink, darkPink, pinkComplementary)
+    
+    &.navy
+        textneon(navy, lightNavy, darkNavy, navyComplementary)
+
+    &.yellow
+        textneon(yellow, lightYellow, darkYellow, yellowComplementary)
+        
+    
