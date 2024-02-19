@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
-import './App.css';
 import Board from './components/board/Board';
-import StepsPlayer from './components/StepsPlayer/StepsPlayer';
+import PreGame from './pages/PreGame';
 import useBearStore from './store';
 import { GameStatus } from './types';
+import styles from './styles/app.module.styl'
 
 function App() {
 	const { status: gameStatus } = useBearStore((state) => state.game);
@@ -12,7 +12,7 @@ function App() {
 	const gamePhase = useCallback(() => {
 		switch (gameStatus) {
 			case GameStatus.waiting:
-				return <StepsPlayer />;
+				return <PreGame />;
 			case GameStatus.started:
 				return <Board />;
 			case GameStatus.ended:
@@ -23,7 +23,11 @@ function App() {
 		}
 	}, [gameStatus]);
 
-	return gamePhase();
+	return <div className={styles.container}>
+		{
+			gamePhase()
+		}
+	</div>;
 }
 
 export default App;
