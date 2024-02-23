@@ -1,9 +1,14 @@
 import Input from './Input';
+import { color } from '../../types'
 import '../../styles/form/text.styl'
+import React from 'react';
 
-const TextInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = ({ ...params }) => {
+type TextInputType = React.InputHTMLAttributes<HTMLInputElement> & { color: color }
+
+const TextInput: React.FC<TextInputType> = ({ className, color = '', ...params }) => {
+
     return (
-        <Input {...params} className="input-text yellow" type="text" />
+        <Input {...params} className={`${className} text text--${color}`} type="text" />
     )
 }
 

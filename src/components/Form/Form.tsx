@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Sides } from '../../types';
-import styles from '../../styles/board/form.module.styl'
 import TextInput from './TextInput';
 import RadioInput from './RadioInput';
 import Button from './Button';
+import '../../styles/form/form.styl'
 
 const Form: React.FC<{
 	title: string;
@@ -28,18 +28,16 @@ const Form: React.FC<{
 	};
 
 	return (
-		<form className={styles.content} action="" onSubmit={sendForm}>
-			<div className={styles.input}>
-				<h3 className={styles.title}>{title}</h3>
-			</div>
-			<div className={styles.input}>
-				<TextInput
-					placeholder="Player name"
-					value={name}
-					onChange={handleName}
-				/>
-			</div>
-			<div className={styles.input}>
+		<form className="form" action="" onSubmit={sendForm}>
+			<h3 className="form__title">{title}</h3>
+			<TextInput
+				className="form__input"
+				placeholder="Player name"
+				value={name}
+				onChange={handleName}
+				color='yellow'
+			/>
+			<div className="form__input">
 				<div style={{ display: 'flex', justifyContent: 'center', paddingTop: "5px", paddingBottom: "5px" }}>
 					<RadioInput
 						name="side"
@@ -48,6 +46,7 @@ const Form: React.FC<{
 						value={Sides.white}
 						onChange={handleSide}
 						text='white'
+						color='yellow'
 					/>
 					<RadioInput
 						name="side"
@@ -56,10 +55,11 @@ const Form: React.FC<{
 						value={Sides.black}
 						onChange={handleSide}
 						text="black"
+						color='yellow'
 					/>
 				</div>
 			</div>
-			<Button type="submit" text={buttonText} />
+			<Button color="yellow" type="submit" text={buttonText} />
 		</form>
 	);
 };

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import ConfigForm from '../components/Form/Form';
+import Box from '../components/layout/Box'
 import { setPlayerInfo, startGame, initVirualBoard } from '../store';
 import { Sides } from '../types';
 import { fillBoard } from '../utils/initializers';
-import styles from '../styles/pages/preGame.module.styl'
+import '../styles/pages/preGame.styl'
 
 const PreGame: React.FC = () => {
 	const [stepController, setStepController] = useState(0);
@@ -47,10 +48,10 @@ const PreGame: React.FC = () => {
 	];
 
 	return (
-		<div className={styles.main}>
-			<div className={styles.form}>
+		<div className="page">
+			<Box color="yellow" className="page__form">
 				{steps[stepController]()}
-			</div>
+			</Box>
 		</div>
 	);
 };
