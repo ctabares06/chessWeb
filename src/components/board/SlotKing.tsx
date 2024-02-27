@@ -76,7 +76,7 @@ const SlotKing: FC<SlotType> = ({
 				color: piece.color,
 			}}
 		>
-			{piece.icon}
+			<img src={piece.icon} alt="" />
 		</div>
 	);
 };

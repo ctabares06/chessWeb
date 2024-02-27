@@ -1,7 +1,11 @@
 import { FC, useEffect, useRef } from 'react';
-import _ from 'lodash';
 import { MovingPiece } from '../../types';
 import { BasePieceInstance } from '../../classes/types';
+// import pawnIcon from '../../assets/svg/pawn.svg';
+// import bishopIcon from '../../assets/svg/bishop.svg';
+// import rookIcon from '../../assets/svg/rook.svg';
+// import knightIcon from '../../assets/svg/knight.svg';
+// import queenIcon from '../../assets/svg/queen.svg';
 
 interface SlotType {
 	piece: BasePieceInstance;
@@ -41,7 +45,7 @@ const Slot: FC<SlotType> = ({ piece, slot, moving, handleClick }) => {
 				color: piece.color,
 			}}
 		>
-			{piece.icon}
+			<img src={piece.icon} alt="" />
 		</div>
 	);
 };
