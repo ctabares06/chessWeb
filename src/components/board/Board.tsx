@@ -9,7 +9,9 @@ const Board: FC = () => {
 		<>
 			<h1>Board</h1>
 			<div>
-				<div style={{ display: 'flex', flexDirection: 'column-reverse' }}>
+				<div
+					style={{ display: 'flex', flexDirection: 'column-reverse' }}
+				>
 					{board.map((file, idx) => (
 						<Tile key={idx} row={file} />
 					))}

@@ -1,7 +1,7 @@
 import Pawn from '../classes/Pawn';
 import { BasePieceInstance } from '../classes/types';
 
-export type color = 'yellow' | 'navy' | 'pink'
+export type color = 'yellow' | 'navy' | 'pink';
 
 export type Board = string[][];
 

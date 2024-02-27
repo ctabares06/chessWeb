@@ -3,7 +3,7 @@ import Board from './components/board/Board';
 import PreGame from './pages/PreGame';
 import useBearStore from './store';
 import { GameStatus } from './types';
-import styles from './styles/app.module.styl'
+import styles from './styles/app.module.styl';
 
 function App() {
 	const { status: gameStatus } = useBearStore((state) => state.game);
@@ -23,11 +23,7 @@ function App() {
 		}
 	}, [gameStatus]);
 
-	return <div className={styles.container}>
-		{
-			gamePhase()
-		}
-	</div>;
+	return <div className={styles.container}>{gamePhase()}</div>;
 }
 
 export default App;

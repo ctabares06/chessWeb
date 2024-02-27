@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import ConfigForm from '../components/Form/Form';
-import Box from '../components/layout/Box'
+import Box from '../components/layout/Box';
 import { setPlayerInfo, startGame, initVirualBoard } from '../store';
 import { Sides } from '../types';
 import { fillBoard } from '../utils/initializers';
-import '../styles/pages/preGame.styl'
+import '../styles/pages/preGame.styl';
 
 const PreGame: React.FC = () => {
 	const [stepController, setStepController] = useState(0);

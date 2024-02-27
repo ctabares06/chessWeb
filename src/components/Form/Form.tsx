@@ -3,7 +3,7 @@ import { Sides } from '../../types';
 import TextInput from './TextInput';
 import RadioInput from './RadioInput';
 import Button from './Button';
-import '../../styles/form/form.styl'
+import '../../styles/form/form.styl';
 
 const Form: React.FC<{
 	title: string;
@@ -35,27 +35,34 @@ const Form: React.FC<{
 				placeholder="Player name"
 				value={name}
 				onChange={handleName}
-				color='yellow'
+				color="yellow"
 			/>
 			<div className="form__input">
-				<div style={{ display: 'flex', justifyContent: 'center', paddingTop: "5px", paddingBottom: "5px" }}>
+				<div
+					style={{
+						display: 'flex',
+						justifyContent: 'center',
+						paddingTop: '5px',
+						paddingBottom: '5px',
+					}}
+				>
 					<RadioInput
 						name="side"
-						id='radio1'
+						id="radio1"
 						checked={side === Sides.white}
 						value={Sides.white}
 						onChange={handleSide}
-						text='white'
-						color='yellow'
+						text="white"
+						color="yellow"
 					/>
 					<RadioInput
 						name="side"
-						id='radio2'
+						id="radio2"
 						checked={side === Sides.black}
 						value={Sides.black}
 						onChange={handleSide}
 						text="black"
-						color='yellow'
+						color="yellow"
 					/>
 				</div>
 			</div>
