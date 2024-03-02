@@ -1,20 +1,18 @@
 import { FC, useEffect, useRef } from 'react';
-import { MovingPiece } from '../../types';
+import { MovingPiece, color } from '../../types';
 import { BasePieceInstance } from '../../classes/types';
-// import pawnIcon from '../../assets/svg/pawn.svg';
-// import bishopIcon from '../../assets/svg/bishop.svg';
-// import rookIcon from '../../assets/svg/rook.svg';
-// import knightIcon from '../../assets/svg/knight.svg';
-// import queenIcon from '../../assets/svg/queen.svg';
+import { ReactSVG } from 'react-svg'
+import '../../styles/board/slot.styl'
 
 interface SlotType {
 	piece: BasePieceInstance;
 	moving: MovingPiece | null;
 	slot: string;
+	color: color
 	handleClick: () => void;
 }
 
-const Slot: FC<SlotType> = ({ piece, slot, moving, handleClick }) => {
+const Slot: FC<SlotType> = ({ piece, slot, moving, color = '', handleClick }) => {
 	const pieceContainer = useRef<HTMLDivElement | null>(null);
 
 	const markIfAvMove = () => {
@@ -36,16 +34,9 @@ const Slot: FC<SlotType> = ({ piece, slot, moving, handleClick }) => {
 			onClick={handleClick}
 			data-testid="slot"
 			ref={pieceContainer}
-			style={{
-				display: 'inline-block',
-				fontSize: '20px',
-				border: '2px solid darkred',
-				width: '50px',
-				height: '50px',
-				color: piece.color,
-			}}
+			className='slot'
 		>
-			<img src={piece.icon} alt="" />
+			<ReactSVG src={piece.icon} className={`slot__piece slot__piece--${color}`} />
 		</div>
 	);
 };

@@ -1,0 +1,22 @@
+@import '../colors'
+@import '../variables'
+
+.tile
+    display: flex
+    border-width: 1px
+    border-style: solid
+    border-color: biege
+    border-left: none
+    border-right: none
+
+    &:last-child
+        border-top: none
+
+    &:first-child
+        border-bottom: none
+
+    & div:first-child
+        border-left: none
+
+    & div:last-child
+        border-right: none

@@ -1,6 +1,7 @@
 import { FC, useEffect, useRef } from 'react';
 import _ from 'lodash';
 import { MovingPiece } from '../../types';
+import '../../styles/board/slot.styl'
 
 interface EmptySlotType {
 	slot: string;
@@ -29,13 +30,7 @@ const EmptySlot: FC<EmptySlotType> = ({ slot, moving, handleClick }) => {
 		<div
 			onClick={handleClick}
 			ref={pieceContainer}
-			style={{
-				display: 'inline-block',
-				fontSize: '20px',
-				border: '2px solid darkred',
-				width: '50px',
-				height: '50px',
-			}}
+			className='slot'
 		></div>
 	);
 };

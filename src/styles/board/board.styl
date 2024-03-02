@@ -1,0 +1,83 @@
+@import '../colors'
+@import '../variables'
+@import '../neon'
+
+.board
+	display: grid
+	grid-template-columns: 50px auto 50px
+	grid-template-rows: 50px auto 50px
+	max-width: fit-content
+	border: 1px solid darkPurple
+	background-color: darkPurple
+	border-radius: 15px
+
+	&--pink
+		neon pink
+	
+	&--navy
+		neon navy
+
+	&--yellow
+		neon yellow
+
+	&__numbers
+		display: flex
+		max-width: 50px
+		flex-direction: column-reverse
+		justify-content: space-around
+		grid-column-start: 1
+		grid-column-end: 2
+		grid-row-start: 2
+		grid-row-end: 3
+		text-align: center
+
+		&--pink
+			color: pink
+			& *
+				text-neon lightPink 2px 5px
+
+		&--navy
+			color: navy
+			& *
+				text-neon lightNavy 3px 5px
+			
+		&--yellow
+			color: yellow
+			& *
+				text-neon lightYellow 3px 5px
+	
+
+		&--reverse
+			grid-column-start: 3
+			grid-column-end: 4
+			& *
+				transform: rotateX(180deg)
+
+
+	&__letters
+		display: flex
+		max-width: auto
+		min-height: 50px
+		flex-direction: row
+		justify-content: space-around
+		align-items: center
+		grid-column-start: 2
+		grid-column-end: 3
+		grid-row-start: 3
+		grid-row-end: 4
+
+		&--reverse
+			grid-row-start: 1
+			grid-row-end: 2
+			& *
+				transform: rotateX(180deg)
+
+	&__chess
+		background-color: taupeDark
+		grid-column-start: 2
+		grid-column-end: 3
+		grid-row-start: 2
+		grid-column-end: 3 
+		display: flex
+		width: fit-content 
+		flex-direction: column-reverse

@@ -8,7 +8,7 @@ import useBearStore, {
 import Slot from './Slot';
 import EmptySlot from './EmptySlot';
 import _ from 'lodash';
-import { Figures } from '../../types';
+import { Figures, Sides } from '../../types';
 import SlotKing from './SlotKing';
 import King from '../../classes/King';
 
@@ -22,6 +22,7 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
 	const turn = game.turn;
 	const cell = virtual[slot];
 	const piece = cell.piece;
+	const color = piece?.color === Sides.white ? 'navy' : 'yellow';
 
 	const handlerSlotClick = () => {
 		if (!moving && piece) {
@@ -77,6 +78,7 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
 						col: cell.col,
 						row: cell.row,
 					}}
+					color={color}
 					handleClick={handlerSlotClick}
 					key={slot}
 				/>
@@ -87,6 +89,7 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
 					piece={piece}
 					slot={slot}
 					moving={moving}
+					color={color}
 					handleClick={handlerSlotClick}
 					key={slot}
 				/>
@@ -94,7 +97,7 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
 		}
 	}, [piece, moving, cell, game]);
 
-	return <>{pieceSelector()}</>;
+	return pieceSelector();
 };
 
 export default SlotSelector;

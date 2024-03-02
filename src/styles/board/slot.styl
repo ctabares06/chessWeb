@@ -1,0 +1,27 @@
+@import '../colors'
+@import '../variables'
+@import '../neon'
+
+.slot
+	display: inline-block
+	border-width: 1px
+	border-style: solid
+	border-color: biege
+	border-top: none
+	border-bottom: none
+	width: 75px
+	height: 75px
+	padding: 2px
+
+	&__piece--pink svg
+		color: pink
+		filter: drop-shadow(0 0 3px lightPink)
+
+	&__piece--navy svg
+		color: navy
+		filter: drop-shadow(0 0 3px lightNavy)
+	
+	&__piece--yellow svg
+		color: yellow
+		filter drop-shadow(0 0 3px lightYellow)
+
