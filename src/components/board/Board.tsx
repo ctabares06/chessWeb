@@ -3,7 +3,9 @@ import useBearStore from '../../store';
 import Tile from './Tile';
 import '../../styles/board/board.styl'
 
-const Numbers: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = ({ ...rest }) => (
+type DivEl = React.HtmlHTMLAttributes<HTMLDivElement>
+
+const Numbers: React.FC<DivEl> = ({ ...rest }) => (
 	<div {...rest}>
 		<h2>1</h2>
 		<h2>2</h2>
@@ -16,7 +18,7 @@ const Numbers: React.FC<React.HtmlHTMLAttributes<HTMLDivElement>> = ({ ...rest }
 	</div>
 )
 
-const Letters: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ ...rest }) => (
+const Letters: React.FC<DivEl> = ({ ...rest }) => (
 	<div {...rest}>
 		<h2>A</h2>
 		<h2>B</h2>
@@ -29,15 +31,15 @@ const Letters: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ ...rest }) =>
 	</div>
 )
 
-const Board: React.FC = () => {
+const Board: React.FC<DivEl & { color: string }> = ({ color = '', className = '' }) => {
 	const board = useBearStore((state) => state.board);
 
 	return (
-		<div className='board board--pink'>
-			<Numbers className='board__numbers board__numbers--pink' />
-			<Numbers className='board__numbers board__numbers--pink board__numbers--reverse' />
-			<Letters className='board__letters board__numbers--pink' />
-			<Letters className='board__letters board__numbers--pink board__letters--reverse' />
+		<div className={`board board--${color} ${className}`}>
+			<Numbers className={`board__numbers board__numbers--${color}`} />
+			<Numbers className={`board__numbers board__numbers--${color} board__numbers--reverse`} />
+			<Letters className={`board__letters board__numbers--${color}`} />
+			<Letters className={`board__letters board__numbers--${color} board__letters--reverse`} />
 			<div className='board__chess'>
 				{board.map((file, idx) => (
 					<Tile key={idx} row={file} />
