@@ -15,19 +15,11 @@ interface SlotType {
 const Slot: FC<SlotType> = ({ piece, slot, moving, color = '', handleClick }) => {
 	const pieceContainer = useRef<HTMLDivElement | null>(null);
 
-	const markIfAvMove = () => {
-		if (pieceContainer.current) {
-			if (moving && moving.avMoves.includes(slot)) {
-				pieceContainer.current.style.backgroundColor = 'red';
-			} else {
-				pieceContainer.current.style.backgroundColor = 'transparent';
-			}
-		}
-	};
-
-	useEffect(() => {
-		markIfAvMove();
-	}, [moving]);
+	const MarkedEl = (
+		<div className={`slot__background slot__background--red`}>
+			<ReactSVG src={piece.icon} className={`slot__piece slot__piece--${color}`} />
+		</div>
+	)
 
 	return (
 		<div
@@ -36,7 +28,10 @@ const Slot: FC<SlotType> = ({ piece, slot, moving, color = '', handleClick }) =>
 			ref={pieceContainer}
 			className='slot'
 		>
-			<ReactSVG src={piece.icon} className={`slot__piece slot__piece--${color}`} />
+			{
+				(moving && moving.avMoves.includes(slot)) ? MarkedEl :
+					<ReactSVG src={piece.icon} className={`slot__piece slot__piece--${color}`} />
+			}
 		</div>
 	);
 };

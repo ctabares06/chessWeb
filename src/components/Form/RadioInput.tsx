@@ -18,7 +18,7 @@ const RadioInput: React.FC<RadioInputType> = ({
 }) => {
 	return (
 		<label className={`${className} radio`} htmlFor={id}>
-			<Input {...rest} type="radio" id={id} />
+			<Input {...rest} type="radio" id={id} checked={checked} />
 			<span className={`radio__button radio__button--${color}`}>
 				<div />
 			</span>

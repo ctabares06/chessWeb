@@ -11,7 +11,6 @@
 	border-bottom: none
 	width: 75px
 	height: 75px
-	padding: 2px
 
 	&__piece--pink svg
 		color: pink
@@ -24,4 +23,19 @@
 	&__piece--yellow svg
 		color: yellow
 		filter drop-shadow(0 0 3px lightYellow)
+
+	&__background
+		width: auto
+		height: 100%
+		padding: none
+		margin: none
+		&--pink
+			gradient-neon pinkComplementary darkPink pink 
+		&--yellow
+			gradient-neon yellowComplementary darkYellow yellow
+		&--navy
+			gradient-neon navyComplementary darkNavy navy
+		&--red
+			gradient-neon #590f0f #ce2626 #ff3737
+			
 

@@ -5,12 +5,14 @@ import RadioInput from './RadioInput';
 import Button from './Button';
 import '../../styles/form/form.styl';
 
-const Form: React.FC<{
+type FormType = {
 	title: string;
 	buttonText: string;
 	defaultSide: Sides;
 	updatePlayer: (name: string, side: Sides) => void;
-}> = ({ title, buttonText, defaultSide, updatePlayer }) => {
+}
+
+const Form: React.FC<FormType> = ({ title, buttonText, defaultSide, updatePlayer }) => {
 	const [name, setName] = useState('');
 	const [side, setSide] = useState<Sides>(defaultSide);
 
