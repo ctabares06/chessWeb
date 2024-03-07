@@ -1,10 +1,10 @@
 import Input from './Input';
-import { color } from '../../types';
+import { ColorWithWhite } from '../../types';
 import '../../styles/form/text.styl';
 import React from 'react';
 
 type TextInputType = React.InputHTMLAttributes<HTMLInputElement> & {
-	color: color;
+	color: ColorWithWhite;
 };
 
 const TextInput: React.FC<TextInputType> = ({

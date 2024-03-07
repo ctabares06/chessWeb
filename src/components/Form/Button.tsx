@@ -1,10 +1,10 @@
 import React from 'react';
 import '../../styles/form/button.styl';
-import { color } from '../../types';
+import { ColorWithWhite } from '../../types';
 
 type ButtonType = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	text: string;
-	color: color;
+	color: ColorWithWhite;
 };
 
 const Button: React.FC<ButtonType> = ({

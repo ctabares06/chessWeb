@@ -1,7 +1,8 @@
 import Pawn from '../classes/Pawn';
 import { BasePieceInstance } from '../classes/types';
 
-export type color = 'yellow' | 'navy' | 'pink';
+export type Color = 'yellow' | 'navy' | 'pink';
+export type ColorWithWhite = Color | 'white';
 
 export type Board = string[][];
 
@@ -71,6 +72,7 @@ export interface Player {
 	graveyard: BasePieceInstance[];
 	name: string;
 	check: boolean;
+	color: Color;
 }
 
 export interface Game {
@@ -78,4 +80,5 @@ export interface Game {
 	[Sides.white]: Player;
 	[Sides.black]: Player;
 	turn: Sides;
+	color: Color;
 }

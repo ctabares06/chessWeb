@@ -1,10 +1,10 @@
 import React from 'react';
 import '../../styles/layout/box.styl';
-import { color } from '../../types';
+import { ColorWithWhite } from '../../types';
 
 type BoxType = React.HtmlHTMLAttributes<HTMLDivElement> & {
 	children: JSX.Element;
-	color: color;
+	color: ColorWithWhite;
 };
 
 const Box: React.FC<BoxType> = ({ children, className = '', color = '' }) => {

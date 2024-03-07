@@ -24,38 +24,46 @@
             height: 100%
             border-radius: 50%
             opacity: 0
-            transition: all 0.15s ease-in-out
+            transition: all .15s ease-in-out
 
-        &.radio__button--pink
+        &--pink
             border-color: darkPink
             & > div
                 neon pink 5px 3px
                 background-color: lightPink
 
-        &.radio__button--navy
+        &--navy
             border-color: darkNavy
             & > div
                 neon navy 5px 3px
                 background-color: lightNavy
         
-        &.radio__button--yellow
+        &--yellow
             border-color: darkYellow
             & > div
                 neon yellow 5px 3px
                 background-color: lightYellow
+        &--white
+            border-color: biege
+            & > div
+                neon white 5px 3px
+                background-color: biege
 
     & .radio__text
         text-align: left
         transition: all .15s ease-in-out
 
-        &.radio__text--pink
+        &--pink
             text-neon: darkPink 6px 4px
 
-        &.radio__text--navy
+        &--navy
             text-neon: darkNavy 6px 4px
 
-        &.radio__text--yellow
+        &--yellow
             text-neon: darkYellow 6px 4px
+            
+        &--white
+            text-neon: biege 6px 4px
 
     & > input[type="radio"]
         width: 0
@@ -71,6 +79,9 @@
             &.radio__button--yellow
                 border-color: lightYellow
 
+            &.radio__button--white
+                border-color: white
+
             & > div
                 opacity: 1
         
@@ -82,5 +93,8 @@
                 text-neon: lightNavy 4px 6px
 
             &.radio__text--yellow
+                text-neon: lightYellow 4px 6px
+
+            &.radio__text--white
                 text-neon: lightYellow 4px 6px
 

@@ -1,7 +1,8 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, useRef } from 'react';
 import _ from 'lodash';
-import { MovingPiece, color } from '../../types';
+import { MovingPiece, Color } from '../../types';
 import '../../styles/board/slot.styl'
+import useBearStore from '../../store';
 
 interface EmptySlotType {
 	slot: string;
@@ -10,10 +11,11 @@ interface EmptySlotType {
 }
 
 const EmptySlot: FC<EmptySlotType> = ({ slot, moving, handleClick }) => {
+	const color = useBearStore(state => state.game[state.game.turn].color)
 	const pieceContainer = useRef<HTMLDivElement | null>(null);
 
 	const MarkedEl = (
-		<div className={`slot__background slot__background--pink`}></div>
+		<div className={`slot__background slot__background--${color}`}></div>
 	)
 
 	return (

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import useBearStore, {
 	changeTurn,
 	eatPiece,
@@ -22,7 +22,6 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
 	const turn = game.turn;
 	const cell = virtual[slot];
 	const piece = cell.piece;
-	const color = piece?.color === Sides.white ? 'navy' : 'yellow';
 
 	const handlerSlotClick = () => {
 		if (!moving && piece) {
@@ -78,7 +77,6 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
 						col: cell.col,
 						row: cell.row,
 					}}
-					color={color}
 					handleClick={handlerSlotClick}
 					key={slot}
 				/>
@@ -89,7 +87,6 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
 					piece={piece}
 					slot={slot}
 					moving={moving}
-					color={color}
 					handleClick={handlerSlotClick}
 					key={slot}
 				/>

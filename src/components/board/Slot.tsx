@@ -1,18 +1,19 @@
 import { FC, useEffect, useRef } from 'react';
-import { MovingPiece, color } from '../../types';
+import { MovingPiece, Color } from '../../types';
 import { BasePieceInstance } from '../../classes/types';
 import { ReactSVG } from 'react-svg'
 import '../../styles/board/slot.styl'
+import useBearStore from '../../store';
 
 interface SlotType {
 	piece: BasePieceInstance;
 	moving: MovingPiece | null;
 	slot: string;
-	color: color
 	handleClick: () => void;
 }
 
-const Slot: FC<SlotType> = ({ piece, slot, moving, color = '', handleClick }) => {
+const Slot: FC<SlotType> = ({ piece, slot, moving, handleClick }) => {
+	const color = useBearStore(state => state.game[piece.color].color)
 	const pieceContainer = useRef<HTMLDivElement | null>(null);
 
 	const MarkedEl = (

@@ -1,8 +1,8 @@
 import { FC, useEffect, useRef } from 'react';
 import _ from 'lodash';
-import { Board, Figures, Sides, MovingPiece, VirtualBoard, color } from '../../types';
+import { Board, Figures, Sides, MovingPiece, VirtualBoard, Color } from '../../types';
 import { KingInstance } from '../../classes/types';
-import { setCheck, setCheckMate } from '../../store';
+import useBearStore, { setCheck, setCheckMate } from '../../store';
 import { ReactSVG } from 'react-svg';
 import '../../styles/board/slot.styl'
 
@@ -10,7 +10,6 @@ interface SlotType {
 	piece: KingInstance;
 	moving: MovingPiece | null;
 	slot: string;
-	color: color;
 	state: {
 		board: Board;
 		virtual: VirtualBoard;
@@ -25,9 +24,9 @@ const SlotKing: FC<SlotType> = ({
 	slot,
 	moving,
 	state,
-	color = '',
 	handleClick,
 }) => {
+	const color = useBearStore(state => state.game[piece.color].color)
 	const pieceContainer = useRef<HTMLDivElement | null>(null);
 
 	const markIfAvMove = () => {
