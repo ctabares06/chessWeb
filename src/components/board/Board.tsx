@@ -1,7 +1,6 @@
 import React from 'react';
 import useBearStore from '../../store';
 import Tile from './Tile';
-import '../../styles/board/board.styl'
 
 type DivEl = React.HtmlHTMLAttributes<HTMLDivElement>
 

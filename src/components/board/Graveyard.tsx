@@ -1,19 +1,46 @@
 import React from 'react';
 import Box from '../layout/Box';
-import useBearStore from '../../store';
-import { BasePieceInstance } from '../../classes/types';
+import { Color, Figures } from '../../types';
+import GraveyardSlot from './GraveyardSlot';
+import { BasePiece } from '../../classes/BasePiece';
 
 interface GraveyardType {
-    pieces: BasePieceInstance[]
-
+    pieces: BasePiece[]
+    player: string
+    color: Color
 }
 
-const Graveyard: React.FC<GraveyardType> = ({ pieces }) => {
-    const color = useBearStore(state => state.game.color)
+type CountedPiecesType = Partial<Record<Figures, BasePiece & { quantity: number }>>
+
+const Graveyard: React.FC<GraveyardType> = ({ pieces, player, color }) => {
+    const countedPieces = pieces.reduce<CountedPiecesType>((acc, piece) => {
+        let accPiece = acc[piece.name]
+        if (accPiece) {
+            accPiece.quantity++
+        } else {
+            accPiece = {
+                quantity: 1,
+                ...piece
+            }
+        }
+
+        return {
+            ...acc,
+            [piece.name]: accPiece
+        }
+    }, {})
+
     return (
-        <Box color={color}>
-            <div></div>
-        </Box>
+        <div>
+            <h1 className='game__title'>{player}'s graveyard</h1>
+            <Box color={color}>
+                <GraveyardSlot piece={countedPieces.pawn} color={color} />
+                <GraveyardSlot piece={countedPieces.bishop} color={color} />
+                <GraveyardSlot piece={countedPieces.queen} color={color} />
+                <GraveyardSlot piece={countedPieces.knight} color={color} />
+                <GraveyardSlot piece={countedPieces.rook} color={color} />
+            </Box>
+        </div>
     )
 }
 

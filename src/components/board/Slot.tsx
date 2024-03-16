@@ -1,8 +1,7 @@
-import { FC, useEffect, useRef } from 'react';
-import { MovingPiece, Color } from '../../types';
+import { FC, useRef } from 'react';
+import { MovingPiece } from '../../types';
 import { BasePieceInstance } from '../../classes/types';
 import { ReactSVG } from 'react-svg'
-import '../../styles/board/slot.styl'
 import useBearStore from '../../store';
 
 interface SlotType {

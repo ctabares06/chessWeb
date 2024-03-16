@@ -1,10 +1,9 @@
 import { FC, useEffect, useRef } from 'react';
 import _ from 'lodash';
-import { Board, Figures, Sides, MovingPiece, VirtualBoard, Color } from '../../types';
+import { Board, Sides, MovingPiece, VirtualBoard } from '../../types';
 import { KingInstance } from '../../classes/types';
 import useBearStore, { setCheck, setCheckMate } from '../../store';
 import { ReactSVG } from 'react-svg';
-import '../../styles/board/slot.styl'
 
 interface SlotType {
 	piece: KingInstance;

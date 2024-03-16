@@ -3,6 +3,7 @@
 @import '../neon'
 
 .slot
+	position: relative
 	display: inline-block
 	border-width: 1px
 	border-style: solid
@@ -11,6 +12,38 @@
 	border-bottom: none
 	width: 75px
 	height: 75px
+
+	&__counter
+		display: flex
+		justify-content: center
+		align-items: center  
+		width: 20px
+		height: 20px
+		border-radius: 50%
+		position: absolute
+		bottom: -20px
+		left: 25px
+		border-width: 2px
+		border-style: solid
+		font-size: .7em
+
+		&--pink
+			border-color: pink
+			color: pink
+			neon lightPink 3px 1px
+			text-neon lightPink 4px 2px
+
+		&--navy
+			border-color: darkNavy
+			color: navy
+			neon lightNavy 3px 1px
+			text-neon lightNavy 4px 2px
+
+		&--yellow
+			border-color: darkYellow
+			color: yellow
+			neon lightYellow 3px 1px
+			text-neon lightYellow 4px 2px
 
 	&__piece--pink svg
 		color: pink

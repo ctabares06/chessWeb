@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import useBearStore, {
 	changeTurn,
 	eatPiece,
@@ -8,7 +8,7 @@ import useBearStore, {
 import Slot from './Slot';
 import EmptySlot from './EmptySlot';
 import _ from 'lodash';
-import { Figures, Sides } from '../../types';
+import { Figures } from '../../types';
 import SlotKing from './SlotKing';
 import King from '../../classes/King';
 

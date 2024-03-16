@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import SlotSelector from './SlotSelector';
-import '../../styles/board/tile.styl'
 
 interface TileProps {
 	row: string[];
