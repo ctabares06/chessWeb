@@ -5,7 +5,6 @@ import {
 	GameStatus,
 	Sides,
 	AxisFigure,
-	MovingPiece,
 	VirtualBoard,
 	Color,
 } from '../types';
@@ -15,22 +14,26 @@ import Pawn from '../classes/Pawn';
 export const setMovingPiece = (cell: AxisFigure, position: string) =>
 	useBearStore.setState((state) => {
 		const { piece } = cell;
-		const avPos = piece?.calcMove(
+
+		if (!piece) return { state }
+
+		const avPos = piece.calcMove(
 			cell.row,
 			cell.col,
 			state.board,
 			state.virtualBoard,
 			false
 		);
-		const moving: MovingPiece = Object({
-			...piece,
-			avMoves: avPos,
-			position,
-		});
-		moving.calcMove = piece.calcMove;
 
 		return {
-			moving: { ...moving },
+			moving: {
+				name: piece.name,
+				icon: piece.icon,
+				color: piece.color,
+				calcMove: piece.calcMove,
+				avMoves: avPos,
+				position,
+			},
 		};
 	});
 

@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react';
 import _ from 'lodash';
-import { MovingPiece, Color } from '../../types';
+import { MovingPiece } from '../../types';
 import useBearStore from '../../store';
 
 interface EmptySlotType {

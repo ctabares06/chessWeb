@@ -1,6 +1,7 @@
 import React from 'react';
 import useBearStore from '../../store';
 import Tile from './Tile';
+import { Color } from '../../types';
 
 type DivEl = React.HtmlHTMLAttributes<HTMLDivElement>
 
@@ -30,7 +31,7 @@ const Letters: React.FC<DivEl> = ({ ...rest }) => (
 	</div>
 )
 
-const Board: React.FC<DivEl & { color: string }> = ({ color = '', className = '' }) => {
+const Board: React.FC<DivEl & { color: Color }> = ({ color = '', className = '' }) => {
 	const board = useBearStore((state) => state.board);
 
 	return (

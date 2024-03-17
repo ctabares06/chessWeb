@@ -20,7 +20,10 @@ const Graveyard: React.FC<GraveyardType> = ({ pieces, player, color }) => {
         } else {
             accPiece = {
                 quantity: 1,
-                ...piece
+                calcMove: piece.calcMove,
+                color: piece.color,
+                icon: piece.icon,
+                name: piece.name
             }
         }
 

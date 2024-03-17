@@ -5,7 +5,7 @@ import { boardGenerator } from '../utils/initializers';
 
 const useBoardStore = create<BoardStore>()(
 	devtools(
-		(set) => {
+		(_set) => {
 			const game: Game = {
 				[Sides.white]: {
 					name: '',

@@ -33,7 +33,7 @@ const Form: React.FC<FormType> = ({ title, buttonText, color, disabledColors, on
 
 	return (
 		<form className="form" action="" onSubmit={sendForm}>
-			<h3 className="form__title">{title}</h3>
+			<h3 className={`form__title form__title--${color}`}>{title}</h3>
 			<TextInput
 				className="form__input"
 				placeholder="Player name"
