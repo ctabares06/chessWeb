@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
 import PreGame from './pages/PreGame';
 import useBearStore from './store';
-import { GameStatus } from './types';
-import styles from './styles/app.module.styl';
+import { GameStatus, Sides } from './types';
 import Game from './pages/Game';
+import './styles/app.styl';
+import Resume from './pages/Resume';
 
 function App() {
 	const { status: gameStatus } = useBearStore((state) => state.game);
@@ -16,14 +17,15 @@ function App() {
 			case GameStatus.started:
 				return <Game />;
 			case GameStatus.ended:
-				return <>winner: {winner}</>;
+				return <Resume winner={winner as Sides} />
+
 
 			default:
 				throw new Error('invalid status');
 		}
 	}, [gameStatus]);
 
-	return <div className={styles.container}>{gamePhase()}</div>;
+	return <div className="app">{gamePhase()}</div>;
 }
 
 export default App;

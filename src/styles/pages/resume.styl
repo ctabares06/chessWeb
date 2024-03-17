@@ -1,0 +1,34 @@
+@import '../colors'
+@import '../neon'
+
+resume-neon(clr)
+    text-shadow: 0 0 5px #fff, 0 0 20px clr
+
+.resume
+    font-size: 4rem
+    max-width: 600px
+    height: 100%
+    margin-left: auto
+    margin-right: auto
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+
+    &__title
+        color: biege
+        text-neon biege
+        font-size: 2em
+
+    &__winner
+        font-size: 1em
+
+    &__winner--pink
+        color: pink
+        resume-neon lightPink
+    &__winner--navy
+        color: navy
+        resume-neon lightNavy
+    &__winner--yellow
+        color: yellow
+        resume-neon lightYellow

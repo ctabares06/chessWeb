@@ -1,6 +1,5 @@
 import React from 'react';
 import Input from './Input';
-import '../../styles/form/radio.styl';
 import { ColorWithWhite } from '../../types';
 
 type RadioInputType = React.InputHTMLAttributes<HTMLInputElement> & {

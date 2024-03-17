@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../styles/form/button.styl';
 import { ColorWithWhite } from '../../types';
 
 type ButtonType = React.ButtonHTMLAttributes<HTMLButtonElement> & {

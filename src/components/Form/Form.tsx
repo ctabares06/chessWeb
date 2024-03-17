@@ -3,7 +3,6 @@ import { Color, ColorWithWhite } from '../../types';
 import TextInput from './TextInput';
 import RadioInput from './RadioInput';
 import Button from './Button';
-import '../../styles/form/form.styl';
 
 type FormType = {
 	title: string;

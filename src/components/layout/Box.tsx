@@ -1,9 +1,8 @@
 import React from 'react';
-import '../../styles/layout/box.styl';
 import { ColorWithWhite } from '../../types';
 
 type BoxType = React.HtmlHTMLAttributes<HTMLDivElement> & {
-	children: JSX.Element[];
+	children: JSX.Element | JSX.Element[];
 	color: ColorWithWhite;
 };
 

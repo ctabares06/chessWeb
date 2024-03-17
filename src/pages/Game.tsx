@@ -2,9 +2,6 @@ import React from 'react';
 import Board from '../components/board/Board';
 import Graveyard from '../components/board/Graveyard';
 import '../styles/pages/game.styl'
-import '../styles/board/board.styl'
-import '../styles/board/tile.styl'
-import '../styles/board/slot.styl'
 import useBearStore from '../store';
 import { Sides } from '../types';
 

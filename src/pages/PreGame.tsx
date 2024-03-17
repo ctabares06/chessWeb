@@ -68,9 +68,11 @@ const PreGame: React.FC = () => {
 
 	return (
 		<div className="page">
-			<Box color={playerColor} className="page__form">
+			<div className='page__form'>
+			<Box color={playerColor}>
 				{players[playerController]()}
 			</Box>
+			</div>
 		</div>
 	);
 };
