@@ -11,7 +11,7 @@
 		"prettier.fix": "prettier ./src --write",
 		"preview": "vite preview",
 		"prepare": "husky install",
-		"precommit": "pnpm lint && pnpm prettier.fix"
+		"precommit": "pnpm lint && tsc"
 	},
 	"dependencies": {
 		"lodash": "^4.17.21",
@@ -43,6 +43,7 @@
 		"jest-environment-jsdom": "^29.5.0",
 		"jest-transform-css": "^6.0.1",
 		"jest-transformer-svg": "^2.0.1",
+		"lint-staged": "^15.2.2",
 		"prettier": "^3.1.0",
 		"stylus": "^0.62.0",
 		"ts-jest": "^29.1.0",

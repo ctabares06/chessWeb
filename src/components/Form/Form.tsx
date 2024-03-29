@@ -8,12 +8,19 @@ type FormType = {
 	title: string;
 	buttonText: string;
 	color: ColorWithWhite;
-	disabledColors: Record<Color, boolean>
+	disabledColors: Record<Color, boolean>;
 	onSubmit: (name: string, color: Color) => void;
 	onChangeColor: (color: Color) => void;
-}
+};
 
-const Form: React.FC<FormType> = ({ title, buttonText, color, disabledColors, onSubmit, onChangeColor }) => {
+const Form: React.FC<FormType> = ({
+	title,
+	buttonText,
+	color,
+	disabledColors,
+	onSubmit,
+	onChangeColor,
+}) => {
 	const [name, setName] = useState('');
 	const [chessColor, setChessColor] = useState<Color | null>(null);
 
@@ -22,9 +29,9 @@ const Form: React.FC<FormType> = ({ title, buttonText, color, disabledColors, on
 	};
 
 	const handleChessColor = (event: React.FormEvent<HTMLInputElement>) => {
-		setChessColor(event.currentTarget.value as Color)
-		onChangeColor(event.currentTarget.value as Color)
-	}
+		setChessColor(event.currentTarget.value as Color);
+		onChangeColor(event.currentTarget.value as Color);
+	};
 
 	const sendForm: React.FormEventHandler<HTMLFormElement> = (event) => {
 		event.preventDefault();
@@ -42,7 +49,7 @@ const Form: React.FC<FormType> = ({ title, buttonText, color, disabledColors, on
 				color={color}
 			/>
 			<div className="form__input">
-				<div className='form__radios'>
+				<div className="form__radios">
 					<RadioInput
 						name="chessColor"
 						id="pink"

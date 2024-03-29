@@ -11,17 +11,17 @@ const useBoardStore = create<BoardStore>()(
 					name: '',
 					check: false,
 					graveyard: [],
-					color: 'pink'
+					color: 'pink',
 				},
 				[Sides.black]: {
 					name: '',
 					check: false,
 					graveyard: [],
-					color: 'navy'
+					color: 'navy',
 				},
 				status: GameStatus.waiting,
 				turn: Sides.white,
-				color: 'yellow'
+				color: 'yellow',
 			};
 
 			const { board, list } = boardGenerator(8);

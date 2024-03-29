@@ -17,8 +17,7 @@ function App() {
 			case GameStatus.started:
 				return <Game />;
 			case GameStatus.ended:
-				return <Resume winner={winner as Sides} />
-
+				return <Resume winner={winner as Sides} />;
 
 			default:
 				throw new Error('invalid status');

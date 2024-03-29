@@ -7,7 +7,7 @@ interface TileProps {
 
 const Tile: FC<TileProps> = ({ row }) => {
 	return (
-		<div className='tile'>
+		<div className="tile">
 			{row.map((slot) => (
 				<SlotSelector key={slot} slot={slot} />
 			))}

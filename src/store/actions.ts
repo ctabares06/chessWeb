@@ -15,7 +15,7 @@ export const setMovingPiece = (cell: AxisFigure, position: string) =>
 	useBearStore.setState((state) => {
 		const { piece } = cell;
 
-		if (!piece) return { state }
+		if (!piece) return { state };
 
 		const avPos = piece.calcMove(
 			cell.row,
@@ -104,12 +104,16 @@ export const startGame = () =>
 		const game = state.game;
 		game.status = GameStatus.started;
 
-		const colors: Color[] = ['pink', 'navy', 'yellow']
-		const usedColors: Color[] = [state.game[Sides.white].color, state.game[Sides.black].color]
+		const colors: Color[] = ['pink', 'navy', 'yellow'];
+		const usedColors: Color[] = [
+			state.game[Sides.white].color,
+			state.game[Sides.black].color,
+		];
 
-		const boardColor = colors.filter(color => color !== usedColors[0] && color !== usedColors[1]);
-		game.color = boardColor[0]
-
+		const boardColor = colors.filter(
+			(color) => color !== usedColors[0] && color !== usedColors[1]
+		);
+		game.color = boardColor[0];
 
 		return {
 			game,
@@ -187,14 +191,15 @@ export const setCheckMate = (side: Sides) =>
 		};
 	});
 
-export const setPlayersColors = (player: Sides, color: Color) => useBearStore.setState((state) => {
-	return {
-		game: {
-			...state.game,
-			[player]: {
-				...state.game[player],
-				color: color,
-			}
-		}
-	}
-})
+export const setPlayersColors = (player: Sides, color: Color) =>
+	useBearStore.setState((state) => {
+		return {
+			game: {
+				...state.game,
+				[player]: {
+					...state.game[player],
+					color: color,
+				},
+			},
+		};
+	});

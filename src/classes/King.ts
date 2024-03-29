@@ -7,7 +7,7 @@ export default class King extends BasePiece {
 		return this.blockedPostion(row, col, board, virtual);
 	}
 
-	// figured out why 
+	// figured out why
 	getAccesiblePositions(
 		row: number,
 		col: number,
@@ -39,7 +39,6 @@ export default class King extends BasePiece {
 	): boolean {
 		const pos = board[col][row];
 
-		
 		const possiblePositions = this.getAccesiblePositions(
 			row,
 			col,

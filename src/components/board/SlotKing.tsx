@@ -25,7 +25,7 @@ const SlotKing: FC<SlotType> = ({
 	state,
 	handleClick,
 }) => {
-	const color = useBearStore(state => state.game[piece.color].color)
+	const color = useBearStore((state) => state.game[piece.color].color);
 	const pieceContainer = useRef<HTMLDivElement | null>(null);
 
 	const markIfAvMove = () => {
@@ -69,9 +69,12 @@ const SlotKing: FC<SlotType> = ({
 			onClick={handleClick}
 			data-testid="slot"
 			ref={pieceContainer}
-			className='slot'
+			className="slot"
 		>
-			<ReactSVG src={piece.icon} className={`slot__piece slot__piece--${color}`} />
+			<ReactSVG
+				src={piece.icon}
+				className={`slot__piece slot__piece--${color}`}
+			/>
 		</div>
 	);
 };

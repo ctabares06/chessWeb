@@ -34,9 +34,8 @@ const SlotSelector: React.FC<{ slot: string }> = ({ slot }) => {
 		} else if (moving && piece) {
 			const isCheck = game[piece.color].check;
 			if (turn === piece.color && !isCheck) {
-				return setMovingPiece(cell, slot)
-			}
-			else if (turn !== piece.color && moving.avMoves.includes(slot)) {
+				return setMovingPiece(cell, slot);
+			} else if (turn !== piece.color && moving.avMoves.includes(slot)) {
 				if (virtual[slot].piece?.name === Figures.king) {
 					return;
 				}
