@@ -1,4 +1,3 @@
 {
-    "src/**/*.tsx": "prettier --write",
-    "src/**/*.ts": "prettier --write"
+    "src/**/*.{ts,tsx}": "prettier --write"
 }
