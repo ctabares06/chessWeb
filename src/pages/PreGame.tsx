@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ConfigForm from '../components/Form/Form';
 import Box from '../components/layout/Box';
-import {
+import useBearStore, {
 	setPlayerInfo,
 	startGame,
 	initVirualBoard,
@@ -12,6 +12,9 @@ import { fillBoard } from '../utils/initializers';
 import '../styles/pages/preGame.styl';
 
 const PreGame: React.FC = () => {
+	const { name: playerOneName } = useBearStore(
+		(state) => state.game[Sides.white]
+	);
 	const [playerController, setPlayerController] = useState(0);
 	const [disabledColors, setDisableColors] = useState<Record<Color, boolean>>(
 		{
@@ -22,26 +25,23 @@ const PreGame: React.FC = () => {
 	);
 	const [playerColor, setPlayerColor] = useState<ColorWithWhite>('white');
 
-	const fillForm = (name: string, color: Color) => {
-		setDisableColors({ ...disabledColors, [color]: true });
-
-		if (playerController === 0) {
-			setPlayerInfo(name, Sides.white);
-			setPlayersColors(Sides.white, playerColor as Color);
-		} else {
-			setPlayerInfo(name, Sides.black);
-			setPlayersColors(Sides.black, playerColor as Color);
-		}
-
+	const setupPlayer1 = (name: string, color: Color) => {
+		setPlayerInfo(name, Sides.white);
+		setPlayersColors(Sides.white, playerColor as Color);
 		setPlayerColor('white');
+		setDisableColors({ ...disabledColors, [color]: true });
+		setPlayerController((state) => state + 1);
+	};
 
-		if (playerController === players.length - 1) {
-			initVirualBoard(fillBoard());
-			startGame();
-
+	const setupPlayer2 = (name: string) => {
+		if (playerOneName === name) {
+			alert('choose a diferent name');
 			return;
 		}
-		setPlayerController((state) => state + 1);
+		setPlayerInfo(name, Sides.black);
+		setPlayersColors(Sides.black, playerColor as Color);
+		initVirualBoard(fillBoard());
+		startGame();
 	};
 
 	const onChangeColor = (color: Color) => {
@@ -55,7 +55,7 @@ const PreGame: React.FC = () => {
 				key="player1"
 				buttonText="next"
 				color={playerColor}
-				onSubmit={fillForm}
+				onSubmit={setupPlayer1}
 				onChangeColor={onChangeColor}
 				disabledColors={disabledColors}
 			/>
@@ -66,7 +66,7 @@ const PreGame: React.FC = () => {
 				key="player2"
 				buttonText="start game"
 				color={playerColor}
-				onSubmit={fillForm}
+				onSubmit={setupPlayer2}
 				onChangeColor={onChangeColor}
 				disabledColors={disabledColors}
 			/>
