@@ -17,11 +17,7 @@ const PreGame: React.FC = () => {
 	);
 	const [playerController, setPlayerController] = useState(0);
 	const [disabledColors, setDisableColors] = useState<Record<Color, boolean>>(
-		{
-			pink: false,
-			navy: false,
-			yellow: false,
-		}
+		{ pink: false, navy: false, yellow: false }
 	);
 	const [boxColor, setBoxColor] = useState<ColorWithWhite>('white');
 	const [sameName, setSameName] = useState<boolean>(false);
