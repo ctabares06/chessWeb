@@ -46,28 +46,24 @@ const PreGame: React.FC = () => {
 	};
 
 	const players = [
-		() => (
-			<ConfigForm
-				title="Player 1"
-				key="player1"
-				buttonText="next"
-				color={boxColor}
-				onSubmit={setupPlayer1}
-				onChangeColor={onChangeColor}
-				disabledColors={disabledColors}
-			/>
-		),
-		() => (
-			<ConfigForm
-				title="Player 2"
-				key="player2"
-				buttonText="start game"
-				color={boxColor}
-				onSubmit={setupPlayer2}
-				onChangeColor={onChangeColor}
-				disabledColors={disabledColors}
-			/>
-		),
+		<ConfigForm
+			title="Player 1"
+			key="player1"
+			buttonText="next"
+			color={boxColor}
+			onSubmit={setupPlayer1}
+			onChangeColor={onChangeColor}
+			disabledColors={disabledColors}
+		/>,
+		<ConfigForm
+			title="Player 2"
+			key="player2"
+			buttonText="start game"
+			color={boxColor}
+			onSubmit={setupPlayer2}
+			onChangeColor={onChangeColor}
+			disabledColors={disabledColors}
+		/>,
 	];
 
 	return (
@@ -78,7 +74,7 @@ const PreGame: React.FC = () => {
 						Name already on use
 					</div>
 				)}
-				<Box color={boxColor}>{players[playerController]()}</Box>
+				<Box color={boxColor}>{players[playerController]}</Box>
 			</div>
 		</div>
 	);
