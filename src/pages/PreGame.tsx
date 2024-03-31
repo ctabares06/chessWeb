@@ -17,35 +17,32 @@ const PreGame: React.FC = () => {
 	);
 	const [playerController, setPlayerController] = useState(0);
 	const [disabledColors, setDisableColors] = useState<Record<Color, boolean>>(
-		{
-			pink: false,
-			navy: false,
-			yellow: false,
-		}
+		{ pink: false, navy: false, yellow: false, }
 	);
-	const [playerColor, setPlayerColor] = useState<ColorWithWhite>('white');
+	const [boxColor, setBoxColor] = useState<ColorWithWhite>('white');
+	const [sameName, setSameName] = useState<boolean>(false);
 
 	const setupPlayer1 = (name: string, color: Color) => {
 		setPlayerInfo(name, Sides.white);
-		setPlayersColors(Sides.white, playerColor as Color);
-		setPlayerColor('white');
+		setPlayersColors(Sides.white, boxColor as Color);
+		setBoxColor('white');
 		setDisableColors({ ...disabledColors, [color]: true });
 		setPlayerController((state) => state + 1);
 	};
 
 	const setupPlayer2 = (name: string) => {
 		if (playerOneName === name) {
-			alert('choose a diferent name');
+			setSameName(true);
 			return;
 		}
 		setPlayerInfo(name, Sides.black);
-		setPlayersColors(Sides.black, playerColor as Color);
+		setPlayersColors(Sides.black, boxColor as Color);
 		initVirualBoard(fillBoard());
 		startGame();
 	};
 
 	const onChangeColor = (color: Color) => {
-		setPlayerColor(color);
+		setBoxColor(color);
 	};
 
 	const players = [
@@ -54,7 +51,7 @@ const PreGame: React.FC = () => {
 				title="Player 1"
 				key="player1"
 				buttonText="next"
-				color={playerColor}
+				color={boxColor}
 				onSubmit={setupPlayer1}
 				onChangeColor={onChangeColor}
 				disabledColors={disabledColors}
@@ -65,7 +62,7 @@ const PreGame: React.FC = () => {
 				title="Player 2"
 				key="player2"
 				buttonText="start game"
-				color={playerColor}
+				color={boxColor}
 				onSubmit={setupPlayer2}
 				onChangeColor={onChangeColor}
 				disabledColors={disabledColors}
@@ -76,7 +73,12 @@ const PreGame: React.FC = () => {
 	return (
 		<div className="page">
 			<div className="page__form">
-				<Box color={playerColor}>{players[playerController]()}</Box>
+				{sameName && (
+					<div className="page__form__error form__error">
+						Name already on use
+					</div>
+				)}
+				<Box color={boxColor}>{players[playerController]()}</Box>
 			</div>
 		</div>
 	);
